@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FacebookPixel from "./components/FacebookPixel";
+import GoogleAdsPixel from "./components/GoogleAdsPixel";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} font-sans antialiased`}>
         <FacebookPixel />
+        <GoogleAdsPixel />
         <Header />
         <main>{children}</main>
         <Footer />
