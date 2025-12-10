@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import {
@@ -17,7 +17,7 @@ import {
   trackGoogleAdsConversion,
 } from '@/app/lib/google/gtag';
 
-export default function GoogleAdsPixel() {
+function GoogleAdsTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -96,6 +96,14 @@ export default function GoogleAdsPixel() {
     };
   }, [pathname, searchParams, primaryConversionId]);
 
+  return null;
+}
+
+export default function GoogleAdsPixel() {
+  // Get all conversion IDs for initialization
+  const conversionIds = getAllConversionIds();
+  const primaryConversionId = conversionIds[0] || null;
+
   // Don't render anything if no conversion IDs are configured
   if (!primaryConversionId) {
     return null;
@@ -116,6 +124,9 @@ export default function GoogleAdsPixel() {
           __html: initGtagScript(conversionIds),
         }}
       />
+      <Suspense fallback={null}>
+        <GoogleAdsTracker />
+      </Suspense>
     </>
   );
 }
