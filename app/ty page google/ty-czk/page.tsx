@@ -30,7 +30,7 @@ export default function ThankYouPage() {
       setOrderCode(newCode);
     }
 
-    // Google Ads Conversion Tracking - Both Accounts
+    // Google Ads Conversion Tracking
     const alreadyTracked = sessionStorage.getItem('conversionTracked');
     if (typeof window !== 'undefined' && !alreadyTracked) {
       const transactionId = sessionStorage.getItem('orderCode') || Math.floor(100000 + Math.random() * 900000).toString();
@@ -43,7 +43,7 @@ export default function ThankYouPage() {
       // Load gtag script
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17763167612';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
       document.head.appendChild(script);
 
       script.onload = async () => {
@@ -63,28 +63,10 @@ export default function ThankYouPage() {
           } as unknown as string;
         }
 
-        // Account 1
-        window.gtag('config', 'AW-17763167612');
+        // Purchase CZK conversion
+        window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17763167612/VOftCILDrswbEPzakZZC',
-          'value': ecValue,
-          'currency': 'CZK',
-          'transaction_id': transactionId,
-          'user_data': userData
-        });
-        // Account 2
-        window.gtag('config', 'AW-17763228552');
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-17763228552/8AEICJSNuMwbEIi3lZZC',
-          'value': ecValue,
-          'currency': 'CZK',
-          'transaction_id': transactionId,
-          'user_data': userData
-        });
-        // Account 3
-        window.gtag('config', 'AW-17761287196');
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-17761287196/gpQHCPOln88bEJz4npVC',
+          'send_to': 'AW-17261661993/TQd0CMyJ488bEKmegKdA',
           'value': ecValue,
           'currency': 'CZK',
           'transaction_id': transactionId,
@@ -98,7 +80,7 @@ export default function ThankYouPage() {
         sessionStorage.removeItem('ec_address');
         sessionStorage.removeItem('ec_value');
 
-        console.log('✅ Google Ads conversion tracked with Enhanced Conversions on both accounts, transaction_id:', transactionId);
+        console.log('✅ Google Ads conversion tracked with Enhanced Conversions, transaction_id:', transactionId);
       };
     }
   }, []);

@@ -30,13 +30,12 @@ export default function ThankYouPage() {
       setOrderCode(newCode);
     }
 
-    // Google Ads Conversion Tracking - Account 1 and Account 3
+    // Google Ads Conversion Tracking
     const alreadyTracked = sessionStorage.getItem('conversionTracked');
     if (typeof window !== 'undefined' && !alreadyTracked) {
       const transactionId = sessionStorage.getItem('orderCode') || Math.floor(100000 + Math.random() * 900000).toString();
 
       // Get Enhanced Conversions data from sessionStorage
-      const ecName = sessionStorage.getItem('ec_name') || '';
       const ecPhone = sessionStorage.getItem('ec_phone') || '';
       const ecAddress = sessionStorage.getItem('ec_address') || '';
       const ecValue = parseFloat(sessionStorage.getItem('ec_value') || '1.0');
@@ -44,7 +43,7 @@ export default function ThankYouPage() {
       // Load gtag script
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17763167612';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
       document.head.appendChild(script);
 
       script.onload = async () => {
@@ -55,7 +54,6 @@ export default function ThankYouPage() {
         // Prepare Enhanced Conversions user_data with hashed values
         const userData: Record<string, string> = {};
         if (ecPhone) {
-          // Normalize phone: remove spaces, dashes, keep + and digits
           const normalizedPhone = ecPhone.replace(/[\s\-\(\)]/g, '');
           userData.phone_number = await sha256(normalizedPhone);
         }
@@ -65,19 +63,10 @@ export default function ThankYouPage() {
           } as unknown as string;
         }
 
-        // Account 1
-        window.gtag('config', 'AW-17763167612');
+        // Purchase PL conversion
+        window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17763167612/ta1KCI39tMwbEPzakZZC',
-          'value': ecValue,
-          'currency': 'PLN',
-          'transaction_id': transactionId,
-          'user_data': userData
-        });
-        // Account 3
-        window.gtag('config', 'AW-17761287196');
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-17761287196/B2roCOCXuMwbEJz4npVC',
+          'send_to': 'AW-17261661993/VxxaCOTu4s8bEKmegKdA',
           'value': ecValue,
           'currency': 'PLN',
           'transaction_id': transactionId,
@@ -91,7 +80,7 @@ export default function ThankYouPage() {
         sessionStorage.removeItem('ec_address');
         sessionStorage.removeItem('ec_value');
 
-        console.log('✅ Google Ads conversion tracked with Enhanced Conversions on both accounts, transaction_id:', transactionId);
+        console.log('✅ Google Ads conversion tracked with Enhanced Conversions, transaction_id:', transactionId);
       };
     }
   }, []);

@@ -30,7 +30,7 @@ export default function ThankYouPage() {
       setOrderCode(newCode);
     }
 
-    // Google Ads Conversion Tracking - Both Accounts
+    // Google Ads Conversion Tracking
     const alreadyTracked = sessionStorage.getItem('conversionTracked');
     if (typeof window !== 'undefined' && !alreadyTracked) {
       const transactionId = sessionStorage.getItem('orderCode') || Math.floor(100000 + Math.random() * 900000).toString();
@@ -43,7 +43,7 @@ export default function ThankYouPage() {
       // Load gtag script
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17763167612';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
       document.head.appendChild(script);
 
       script.onload = async () => {
@@ -63,19 +63,10 @@ export default function ThankYouPage() {
           } as unknown as string;
         }
 
-        // Account 1
-        window.gtag('config', 'AW-17763167612');
+        // Purchase HU conversion
+        window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17763167612/rI6ACMHhvMwbEPzakZZC',
-          'value': ecValue,
-          'currency': 'HUF',
-          'transaction_id': transactionId,
-          'user_data': userData
-        });
-        // Account 2
-        window.gtag('config', 'AW-17763228552');
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-17763228552/nwv5CJ2PvswbEIi3lZZC',
+          'send_to': 'AW-17261661993/6WDZCOun1M8bEKmegKdA',
           'value': ecValue,
           'currency': 'HUF',
           'transaction_id': transactionId,
@@ -89,7 +80,7 @@ export default function ThankYouPage() {
         sessionStorage.removeItem('ec_address');
         sessionStorage.removeItem('ec_value');
 
-        console.log('✅ Google Ads conversion tracked with Enhanced Conversions on both accounts, transaction_id:', transactionId);
+        console.log('✅ Google Ads conversion tracked with Enhanced Conversions, transaction_id:', transactionId);
       };
     }
   }, []);
@@ -169,7 +160,7 @@ export default function ThankYouPage() {
           textAlign: 'left'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: '32px', height: '32px', background: '#16a34a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>€</div>
+            <div style={{ width: '32px', height: '32px', background: '#16a34a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>Ft</div>
             <div>
               <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Utánvétes fizetés</div>
               <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Készpénzzel fizet a futárnak</div>
