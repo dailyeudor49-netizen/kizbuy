@@ -11,35 +11,32 @@ export const Bundle: React.FC = () => {
         </div>
 
         <div className="mt-8 flex flex-col md:flex-row gap-8 items-center justify-center">
-            {/* Main Item */}
+            {/* Main Item - SmartBox TV 4K Pro */}
             <div className="flex-1 text-center w-full">
                 <div className="relative">
-                     <img src="https://picsum.photos/400/400?random=1" alt="Box" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-cover border border-gray-200"/>
+                     <img src="/images/tvboxpro 4k/10.png" alt="SmartBox TV 4K Pro" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
                 </div>
                 <p className="font-black text-gray-900 text-xl uppercase mb-1">{PRODUCT_NAME}</p>
                 <p className="text-gray-500 line-through font-bold">Vrijednost 118,00 {CURRENCY}</p>
             </div>
-            
+
             <Plus className="text-gray-400 hidden md:block" size={48} strokeWidth={3} />
 
-            {/* Included Item */}
+            {/* Included Item - Remote */}
             <div className="flex-1 text-center w-full">
-                <img src="https://picsum.photos/400/400?random=4" alt="Remote" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-cover border border-gray-200"/>
+                <img src="/images/tvboxpro 4k/12.png" alt="Glasovni Daljinski" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
                 <p className="font-bold text-gray-800 text-lg uppercase mb-1">Glasovni Daljinski</p>
                 <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold">UKLJUČENO</div>
             </div>
 
             <Plus className="text-gray-400 hidden md:block" size={48} strokeWidth={3} />
 
-            {/* THE GIFT */}
+            {/* THE GIFT - Joystick */}
             <div className="flex-1 text-center w-full relative">
                  <div className="absolute -top-4 -right-4 md:right-4 bg-red-500 text-white rounded-full w-16 h-16 flex items-center justify-center font-black text-sm transform rotate-12 shadow-lg z-10 animate-bounce">
                     POKLON
                 </div>
-                <div className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 bg-gray-900 flex flex-col items-center justify-center border-4 border-yellow-400">
-                    <Gamepad2 size={80} className="text-white mb-2"/>
-                    <span className="text-yellow-400 font-bold text-xs uppercase">Gaming Edition</span>
-                </div>
+                <img src="/images/tvboxpro 4k/11.png" alt="Bežični Joystick" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border-4 border-yellow-400"/>
                 <p className="font-black text-gray-900 text-lg uppercase mb-1">Bežični Joystick</p>
                 <p className="text-green-600 font-black text-lg bg-green-100 inline-block px-2 rounded">BESPLATNO (Vrijednost 25 {CURRENCY})</p>
             </div>

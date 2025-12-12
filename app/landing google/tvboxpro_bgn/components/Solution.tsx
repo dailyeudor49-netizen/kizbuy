@@ -18,10 +18,12 @@ export const Solution: React.FC = () => {
             {/* ANGLE 1: CINEMA / STREAMING */}
             <div className="flex flex-col md:flex-row items-center gap-8 bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 transform hover:scale-[1.01] transition duration-300">
                 <div className="w-full md:w-1/2">
-                    {/* Placeholder for GIF 1:1 */}
+                    {/* Video Cinema */}
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                         <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">4K ULTRA HD</div>
-                        <img src="https://picsum.photos/800/800?random=10" alt="GIF Menu Cinema" className="w-full h-full object-cover" />
+                        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                            <source src="/images/tvboxpro 4k/gif CINEMA IN 4K (MEGLIO CHE DAL VIVO).mp4" type="video/mp4" />
+                        </video>
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 text-left">
@@ -45,10 +47,12 @@ export const Solution: React.FC = () => {
             {/* ANGLE 2: SPORT / STABILITY */}
             <div className="flex flex-col md:flex-row-reverse items-center gap-8 bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 transform hover:scale-[1.01] transition duration-300">
                 <div className="w-full md:w-1/2">
-                    {/* Placeholder for GIF 1:1 */}
+                    {/* Video Sport */}
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                         <div className="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">БЕЗ ЗАБИВАНЕ</div>
-                        <img src="https://picsum.photos/800/800?random=11" alt="GIF Sport Match" className="w-full h-full object-cover" />
+                        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                            <source src="/images/tvboxpro 4k/gif LA PARTITA, COME ALLO STADIO.mp4" type="video/mp4" />
+                        </video>
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 text-left">
@@ -72,10 +76,10 @@ export const Solution: React.FC = () => {
             {/* ANGLE 3: GAMING / KIDS */}
             <div className="flex flex-col md:flex-row items-center gap-8 bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 transform hover:scale-[1.01] transition duration-300">
                 <div className="w-full md:w-1/2">
-                    {/* Placeholder for GIF 1:1 */}
+                    {/* GIF Gaming */}
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                          <div className="absolute top-2 left-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">ДЖОЙСТИК В КУТИЯТА</div>
-                        <img src="https://picsum.photos/800/800?random=12" alt="GIF Video Games" className="w-full h-full object-cover" />
+                        <img src="/images/tvboxpro 4k/gif GIOCA A GTA, FIFA E FORTNITE.gif" alt="GIF Video Games" className="w-full h-full object-cover" />
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 text-left">

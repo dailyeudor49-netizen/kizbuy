@@ -5,11 +5,15 @@ import { Star, Zap, Check, ChevronLeft, ChevronRight, Truck, ShieldCheck, Bankno
 import { PRICE_PROMO, PRICE_FULL, CURRENCY } from '../constants';
 
 const productImages = [
-  "https://picsum.photos/800/800?random=1", // Box frontal
-  "https://picsum.photos/800/800?random=20", // Remote control
-  "https://picsum.photos/800/800?random=30", // Interface on TV
-  "https://picsum.photos/800/800?random=40", // Gaming Controller
-  "https://picsum.photos/800/800?random=50"  // Box content
+  "/images/tvboxpro 4k/1.png",
+  "/images/tvboxpro 4k/2.png",
+  "/images/tvboxpro 4k/3.png",
+  "/images/tvboxpro 4k/4.png",
+  "/images/tvboxpro 4k/5.png",
+  "/images/tvboxpro 4k/6.png",
+  "/images/tvboxpro 4k/7.png",
+  "/images/tvboxpro 4k/8.png",
+  "/images/tvboxpro 4k/9.png",
 ];
 
 export const Hero: React.FC = () => {
@@ -85,14 +89,16 @@ export const Hero: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Dots */}
-                <div className="flex justify-center gap-2 mt-3">
-                    {productImages.map((_, idx) => (
-                        <button 
+                {/* Thumbnails */}
+                <div className="flex justify-center gap-2 mt-3 flex-wrap">
+                    {productImages.map((img, idx) => (
+                        <button
                             key={idx}
                             onClick={() => setCurrentImage(idx)}
-                            className={`w-3 h-3 rounded-full ${currentImage === idx ? 'bg-red-600 scale-125' : 'bg-gray-300'}`}
-                        />
+                            className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${currentImage === idx ? 'border-red-600 scale-110 shadow-lg' : 'border-gray-300 opacity-70 hover:opacity-100'}`}
+                        >
+                            <img src={img} alt={`Миниатюра ${idx + 1}`} className="w-full h-full object-cover" />
+                        </button>
                     ))}
                 </div>
             </div>
