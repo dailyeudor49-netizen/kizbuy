@@ -1,8 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Timer, ShieldCheck, Lock, Truck, Check } from 'lucide-react';
 import { PRICE_PROMO, SHIPPING_COST, PRODUCT_NAME, CURRENCY } from '../constants';
+
+// Network config for HR
+const NETWORK_CONFIG = {
+  uid: '0191b25c-22d2-7f55-9d9b-79b67cebbff3',
+  key: 'e0fe8e75c501eccab21f8d',
+  offer: '2810',
+  lp: '2843',
+};
 
 export const OrderForm: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
@@ -11,7 +19,9 @@ export const OrderForm: React.FC = () => {
     phone: '',
     address: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const tmfpRef = useRef<HTMLInputElement>(null);
 
   // Calculate total price as numbers for safety
   const priceNum = parseFloat(PRICE_PROMO.replace(',', '.'));
@@ -32,16 +42,66 @@ export const OrderForm: React.FC = () => {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(formState.name && formState.phone && formState.address) {
-        // Save data to sessionStorage for conversion tracking
-        sessionStorage.setItem('ec_phone', formState.phone);
-        sessionStorage.setItem('ec_address', formState.address);
-        sessionStorage.setItem('ec_value', totalNum.toString());
+        setIsSubmitting(true);
 
-        // Redirect to thank you page
-        window.location.href = '/ty-hr';
+        // Get UTM params from URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Prepare form data for network
+        const formData = new FormData();
+        formData.append('uid', NETWORK_CONFIG.uid);
+        formData.append('key', NETWORK_CONFIG.key);
+        formData.append('offer', NETWORK_CONFIG.offer);
+        formData.append('lp', NETWORK_CONFIG.lp);
+        formData.append('name', formState.name);
+        formData.append('tel', formState.phone);
+        formData.append('street-address', formState.address);
+
+        // Add fingerprint if available
+        const tmfpValue = tmfpRef.current?.value || '';
+        if (tmfpValue) {
+          formData.append('tmfp', tmfpValue);
+        }
+
+        // Add UTM params if present
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+          const value = urlParams.get(param);
+          if (value) formData.append(param, value);
+        });
+
+        try {
+          // Send to network API
+          const response = await fetch('https://offers.uncappednetwork.com/forms/api/', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await response.json();
+          console.log('Network API response:', data);
+
+          // Save data to sessionStorage for conversion tracking
+          sessionStorage.setItem('ec_phone', formState.phone);
+          sessionStorage.setItem('ec_address', formState.address);
+          sessionStorage.setItem('ec_value', totalNum.toString());
+
+          // If DOUBLE, skip Google Ads conversion pixel
+          if (data.message === 'DOUBLE') {
+            sessionStorage.setItem('skipConversion', 'true');
+          }
+
+          // Redirect to thank you page
+          window.location.href = '/ty-hr';
+        } catch (error) {
+          console.error('Network API error:', error);
+          // Still redirect on error, conversion will still fire
+          sessionStorage.setItem('ec_phone', formState.phone);
+          sessionStorage.setItem('ec_address', formState.address);
+          sessionStorage.setItem('ec_value', totalNum.toString());
+          window.location.href = '/ty-hr';
+        }
     } else {
         alert("Molimo ispunite sva obavezna polja");
     }
@@ -106,6 +166,9 @@ export const OrderForm: React.FC = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Hidden fingerprint field for network tracking */}
+            <input type="hidden" name="tmfp" ref={tmfpRef} />
+
             <div>
               <label className="block text-gray-700 font-bold mb-2 text-lg">Ime i Prezime <span className="text-red-500">*</span></label>
               <input 
@@ -151,11 +214,16 @@ export const OrderForm: React.FC = () => {
                <span>Bez rizika: plaćate gotovinom tek kada preuzmete paket.</span>
             </div>
 
-            <button 
-              type="submit" 
-              className="w-full bg-green-600 hover:bg-green-700 text-white text-2xl md:text-3xl font-black py-6 px-6 rounded-xl shadow-xl transform transition hover:scale-105 border-b-8 border-green-800 animate-pulse-btn whitespace-normal leading-tight"
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full text-white text-2xl md:text-3xl font-black py-6 px-6 rounded-xl shadow-xl transform transition border-b-8 whitespace-normal leading-tight ${
+                isSubmitting
+                  ? 'bg-gray-400 border-gray-500 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700 hover:scale-105 border-green-800 animate-pulse-btn'
+              }`}
             >
-              POTVRDI NARUDŽBU
+              {isSubmitting ? 'ŠALJEM...' : 'POTVRDI NARUDŽBU'}
               <span className="block text-lg font-normal mt-2 text-green-100">Brza Dostava i Plaćanje Pouzećem</span>
             </button>
           </form>

@@ -1,8 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Timer, ShieldCheck, Lock, Truck, Check } from 'lucide-react';
 import { PRICE_PROMO, SHIPPING_COST, PRODUCT_NAME, CURRENCY } from '../constants';
+
+// Network config for BGN
+const NETWORK_CONFIG = {
+  uid: '0191b25c-22d2-7f55-9d9b-79b67cebbff3',
+  key: 'e0fe8e75c501eccab21f8d',
+  offer: '3417',
+  lp: '3453',
+};
 
 export const OrderForm: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
@@ -11,7 +19,9 @@ export const OrderForm: React.FC = () => {
     phone: '',
     address: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const tmfpRef = useRef<HTMLInputElement>(null);
 
   // Calculate total price as numbers for safety
   const priceNum = parseFloat(PRICE_PROMO.replace(',', '.'));
@@ -32,16 +42,66 @@ export const OrderForm: React.FC = () => {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if(formState.name && formState.phone && formState.address) {
-        // Save data to sessionStorage for conversion tracking
-        sessionStorage.setItem('ec_phone', formState.phone);
-        sessionStorage.setItem('ec_address', formState.address);
-        sessionStorage.setItem('ec_value', totalNum.toString());
+        setIsSubmitting(true);
 
-        // Redirect to thank you page
-        window.location.href = '/ty-bgn';
+        // Get UTM params from URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Prepare form data for network
+        const formData = new FormData();
+        formData.append('uid', NETWORK_CONFIG.uid);
+        formData.append('key', NETWORK_CONFIG.key);
+        formData.append('offer', NETWORK_CONFIG.offer);
+        formData.append('lp', NETWORK_CONFIG.lp);
+        formData.append('name', formState.name);
+        formData.append('tel', formState.phone);
+        formData.append('street-address', formState.address);
+
+        // Add fingerprint if available
+        const tmfpValue = tmfpRef.current?.value || '';
+        if (tmfpValue) {
+          formData.append('tmfp', tmfpValue);
+        }
+
+        // Add UTM params if present
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+          const value = urlParams.get(param);
+          if (value) formData.append(param, value);
+        });
+
+        try {
+          // Send to network API
+          const response = await fetch('https://offers.uncappednetwork.com/forms/api/', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await response.json();
+          console.log('Network API response:', data);
+
+          // Save data to sessionStorage for conversion tracking
+          sessionStorage.setItem('ec_phone', formState.phone);
+          sessionStorage.setItem('ec_address', formState.address);
+          sessionStorage.setItem('ec_value', totalNum.toString());
+
+          // If DOUBLE, skip Google Ads conversion pixel
+          if (data.message === 'DOUBLE') {
+            sessionStorage.setItem('skipConversion', 'true');
+          }
+
+          // Redirect to thank you page
+          window.location.href = '/ty-bgn';
+        } catch (error) {
+          console.error('Network API error:', error);
+          // Still redirect on error, conversion will still fire
+          sessionStorage.setItem('ec_phone', formState.phone);
+          sessionStorage.setItem('ec_address', formState.address);
+          sessionStorage.setItem('ec_value', totalNum.toString());
+          window.location.href = '/ty-bgn';
+        }
     } else {
         alert("Моля, попълнете всички задължителни полета");
     }
@@ -73,12 +133,12 @@ export const OrderForm: React.FC = () => {
   return (
     <section id="order-form" className="py-12 px-4 bg-gray-200">
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-300">
-        
+
         {/* Header Form */}
         <div className="bg-red-600 text-white p-6 text-center">
           <h2 className="text-3xl font-black uppercase mb-2">ФОРМА ЗА ПОРЪЧКА</h2>
           <p className="text-lg font-medium">Попълнете по-долу, за да запазите промоцията</p>
-          
+
           <div className="flex items-center justify-center gap-2 mt-4 bg-red-700 py-2 rounded-lg border border-red-500">
             <Timer className="animate-spin-slow" />
             <span className="font-bold text-xl">Офертата изтича след: {formatTime(timeLeft)}</span>
@@ -106,10 +166,13 @@ export const OrderForm: React.FC = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Hidden fingerprint field for network tracking */}
+            <input type="hidden" name="tmfp" ref={tmfpRef} />
+
             <div>
               <label className="block text-gray-700 font-bold mb-2 text-lg">Име и Фамилия <span className="text-red-500">*</span></label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="name"
                 required
                 placeholder="Напр. Иван Петров"
@@ -121,8 +184,8 @@ export const OrderForm: React.FC = () => {
 
             <div>
               <label className="block text-gray-700 font-bold mb-2 text-lg">Телефонен номер <span className="text-red-500">*</span></label>
-              <input 
-                type="tel" 
+              <input
+                type="tel"
                 name="phone"
                 required
                 placeholder="Напр. 088 123 4567"
@@ -135,7 +198,7 @@ export const OrderForm: React.FC = () => {
 
             <div>
               <label className="block text-gray-700 font-bold mb-2 text-lg">Пълен Адрес за доставка <span className="text-red-500">*</span></label>
-              <textarea 
+              <textarea
                 name="address"
                 required
                 placeholder="Град, Квартал, Улица, Номер, Вход, Апартамент (или офис на Еконт/Спиди)"
@@ -151,11 +214,16 @@ export const OrderForm: React.FC = () => {
                <span>Нулев риск: плащате в брой/карта чак когато вземете пратката.</span>
             </div>
 
-            <button 
-              type="submit" 
-              className="w-full bg-green-600 hover:bg-green-700 text-white text-2xl md:text-3xl font-black py-6 px-6 rounded-xl shadow-xl transform transition hover:scale-105 border-b-8 border-green-800 animate-pulse-btn whitespace-normal leading-tight"
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full text-white text-2xl md:text-3xl font-black py-6 px-6 rounded-xl shadow-xl transform transition border-b-8 whitespace-normal leading-tight ${
+                isSubmitting
+                  ? 'bg-gray-400 border-gray-500 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700 hover:scale-105 border-green-800 animate-pulse-btn'
+              }`}
             >
-              ПОТВЪРДИ ПОРЪЧКАТА
+              {isSubmitting ? 'ИЗПРАЩАМ...' : 'ПОТВЪРДИ ПОРЪЧКАТА'}
               <span className="block text-lg font-normal mt-2 text-green-100">Бърза Доставка и Плащане при доставка</span>
             </button>
           </form>

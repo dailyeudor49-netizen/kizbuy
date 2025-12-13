@@ -32,6 +32,15 @@ export default function ThankYouPage() {
 
     // Google Ads Conversion Tracking
     const alreadyTracked = sessionStorage.getItem('conversionTracked');
+    const skipConversion = sessionStorage.getItem('skipConversion');
+
+    // Skip conversion if it's a DOUBLE from network
+    if (skipConversion === 'true') {
+      console.log('⚠️ Skipping Google Ads conversion - DOUBLE lead from network');
+      sessionStorage.removeItem('skipConversion');
+      return;
+    }
+
     if (typeof window !== 'undefined' && !alreadyTracked) {
       const transactionId = sessionStorage.getItem('orderCode') || Math.floor(100000 + Math.random() * 900000).toString();
 

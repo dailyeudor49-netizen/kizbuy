@@ -21,6 +21,12 @@ export default function TvboxproHrLayout({
         src="https://www.googletagmanager.com/gtag/js?id=AW-17261661993"
         strategy="afterInteractive"
       />
+      {/* Network Fingerprint Script */}
+      <Script
+        src="https://offers.uncappednetwork.com/forms/tmfp/"
+        crossOrigin="anonymous"
+        strategy="lazyOnload"
+      />
       <Script id="google-ads-hr" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];

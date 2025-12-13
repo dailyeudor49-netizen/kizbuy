@@ -12,6 +12,9 @@ import { OrderForm } from './components/OrderForm';
 export default function Page() {
   return (
     <>
+      {/* Network Click Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="https://offers.uncappednetwork.com/forms/api/ck/?o=3417&uid=0191b25c-22d2-7f55-9d9b-79b67cebbff3&lp=3453" style={{width:'1px',height:'1px',display:'none'}} alt="" />
       <Hero />
       <Problem />
       <HowItWorks />
