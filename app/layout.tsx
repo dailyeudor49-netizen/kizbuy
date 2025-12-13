@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import LayoutWrapper from "./components/LayoutWrapper";
 import FacebookPixel from "./components/FacebookPixel";
 import GoogleAdsPixel from "./components/GoogleAdsPixel";
 
@@ -31,9 +30,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans antialiased`}>
         <FacebookPixel />
         <GoogleAdsPixel />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

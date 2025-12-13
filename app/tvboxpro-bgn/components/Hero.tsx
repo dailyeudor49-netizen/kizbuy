@@ -5,15 +5,15 @@ import { Star, Zap, Check, ChevronLeft, ChevronRight, Truck, ShieldCheck, Bankno
 import { PRICE_PROMO, PRICE_FULL, CURRENCY } from '../constants';
 
 const productImages = [
-  "/images/tvboxpro 4k/1.png",
-  "/images/tvboxpro 4k/2.png",
-  "/images/tvboxpro 4k/3.png",
-  "/images/tvboxpro 4k/4.png",
-  "/images/tvboxpro 4k/5.png",
-  "/images/tvboxpro 4k/6.png",
-  "/images/tvboxpro 4k/7.png",
-  "/images/tvboxpro 4k/8.png",
-  "/images/tvboxpro 4k/9.png",
+  "/images/tvboxpro-4k/1.png",
+  "/images/tvboxpro-4k/2.png",
+  "/images/tvboxpro-4k/3.png",
+  "/images/tvboxpro-4k/4.png",
+  "/images/tvboxpro-4k/5.png",
+  "/images/tvboxpro-4k/6.png",
+  "/images/tvboxpro-4k/7.png",
+  "/images/tvboxpro-4k/8.png",
+  "/images/tvboxpro-4k/9.png",
 ];
 
 export const Hero: React.FC = () => {

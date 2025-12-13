@@ -22,7 +22,7 @@ export const Solution: React.FC = () => {
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                         <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">4K ULTRA HD</div>
                         <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                            <source src="/images/tvboxpro 4k/gif CINEMA IN 4K (MEGLIO CHE DAL VIVO).mp4" type="video/mp4" />
+                            <source src="/images/tvboxpro-4k/cinema-4k.mp4" type="video/mp4" />
                         </video>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ export const Solution: React.FC = () => {
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                         <div className="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">BEZ ZASTOJA</div>
                         <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                            <source src="/images/tvboxpro 4k/gif LA PARTITA, COME ALLO STADIO.mp4" type="video/mp4" />
+                            <source src="/images/tvboxpro-4k/sport.mp4" type="video/mp4" />
                         </video>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ export const Solution: React.FC = () => {
                     {/* GIF Gaming */}
                     <div className="relative rounded-xl overflow-hidden shadow-lg border-4 border-gray-900 aspect-square">
                          <div className="absolute top-2 left-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 z-10 rounded uppercase animate-pulse">JOYSTICK U KUTIJI</div>
-                        <img src="/images/tvboxpro 4k/gif GIOCA A GTA, FIFA E FORTNITE.gif" alt="GIF Video Games" className="w-full h-full object-cover" />
+                        <img src="/images/tvboxpro-4k/gaming.gif" alt="GIF Video Games" className="w-full h-full object-cover" />
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 text-left">

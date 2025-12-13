@@ -14,7 +14,7 @@ export const Bundle: React.FC = () => {
             {/* Main Item - SmartBox TV 4K Pro */}
             <div className="flex-1 text-center w-full">
                 <div className="relative">
-                     <img src="/images/tvboxpro 4k/10.png" alt="SmartBox TV 4K Pro" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
+                     <img src="/images/tvboxpro-4k/10.png" alt="SmartBox TV 4K Pro" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
                 </div>
                 <p className="font-black text-gray-900 text-xl uppercase mb-1">{PRODUCT_NAME}</p>
                 <p className="text-gray-500 line-through font-bold">Стойност 230,00 {CURRENCY}</p>
@@ -24,7 +24,7 @@ export const Bundle: React.FC = () => {
 
             {/* Included Item - Remote */}
             <div className="flex-1 text-center w-full">
-                <img src="/images/tvboxpro 4k/12.png" alt="Гласово Дистанционно" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
+                <img src="/images/tvboxpro-4k/12.png" alt="Гласово Дистанционно" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border border-gray-200"/>
                 <p className="font-bold text-gray-800 text-lg uppercase mb-1">Гласово Дистанционно</p>
                 <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold">В КОМПЛЕКТА</div>
             </div>
@@ -36,7 +36,7 @@ export const Bundle: React.FC = () => {
                  <div className="absolute -top-4 -right-4 md:right-4 bg-red-500 text-white rounded-full w-16 h-16 flex items-center justify-center font-black text-sm transform rotate-12 shadow-lg z-10 animate-bounce">
                     ПОДАРЪК
                 </div>
-                <img src="/images/tvboxpro 4k/11.png" alt="Безжичен Джойстик" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border-4 border-yellow-400"/>
+                <img src="/images/tvboxpro-4k/11.png" alt="Безжичен Джойстик" className="w-48 h-48 mx-auto rounded-xl shadow-lg mb-4 object-contain bg-white border-4 border-yellow-400"/>
                 <p className="font-black text-gray-900 text-lg uppercase mb-1">Безжичен Джойстик</p>
                 <p className="text-green-600 font-black text-lg bg-green-100 inline-block px-2 rounded">БЕЗПЛАТНО (Стойност 50 {CURRENCY})</p>
             </div>
