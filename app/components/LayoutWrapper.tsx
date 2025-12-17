@@ -16,12 +16,16 @@ const LANDING_ROUTES = [
   "/ty-cz",
   "/ty-sk",
   "/fb-superhub",
+  "/ty-lithiumpro-it",
+];
+
+// Routes that should show only Kizbuy footer (no header)
+const FOOTER_ONLY_ROUTES = [
   "/lithiumpro-it",
   "/lithiumpro-pl",
   "/lithiumpro-hu",
   "/lithiumpro-cz",
   "/lithiumpro-sk",
-  "/ty-lithiumpro-it",
 ];
 
 export default function LayoutWrapper({
@@ -31,11 +35,23 @@ export default function LayoutWrapper({
 }) {
   const pathname = usePathname();
 
-  // Check if current route is a landing page
+  // Check if current route is a landing page (no header/footer)
   const isLandingPage = LANDING_ROUTES.some(route => pathname?.startsWith(route));
+
+  // Check if current route should show only footer (lithiumpro landings)
+  const isFooterOnly = FOOTER_ONLY_ROUTES.some(route => pathname?.startsWith(route));
 
   if (isLandingPage) {
     return <>{children}</>;
+  }
+
+  if (isFooterOnly) {
+    return (
+      <>
+        {children}
+        <Footer />
+      </>
+    );
   }
 
   return (

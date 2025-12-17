@@ -12,6 +12,9 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mb-3">
               Premium tech gadgets and electronics at wholesale prices. Fast delivery worldwide.
             </p>
+            <p className="text-gray-400 text-sm mb-3">
+              <span className="text-green-400 font-semibold">LithiumPro™</span> is a registered trademark distributed by Kizbuy.
+            </p>
             <div className="text-gray-400 text-sm space-y-1">
               <p>info@kizbuy.com</p>
               <p>27 Buchanan Enterprise Centre, Glasgow</p>
