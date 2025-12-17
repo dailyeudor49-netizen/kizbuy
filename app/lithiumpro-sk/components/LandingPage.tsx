@@ -66,7 +66,7 @@ const LandingPage = () => {
                <div className="relative mx-auto max-w-[500px] md:max-w-full md:sticky md:top-24">
 
                    {/* INNER CONTAINER WITH OVERFLOW HIDDEN FOR IMAGE RADIUS */}
-                   <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-100 relative bg-white">
+                   <div className="rounded-t-3xl overflow-hidden shadow-2xl border-4 border-b-0 border-gray-100 relative bg-white">
 
                        {/* ELETTA N.1 BADGE - Top left */}
                        <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur border-2 border-green-600 rounded-full px-3 py-1 flex items-center gap-2 shadow-lg">
@@ -80,17 +80,15 @@ const LandingPage = () => {
                           <span className="text-[10px] md:text-xs font-black text-green-800 uppercase">Top 2025</span>
                        </div>
 
-                       {/* KIT GRATIS STICKER - Top right */}
-                       <div className="absolute top-3 right-3 z-10">
-                          <div className="bg-red-600 text-white border-2 border-white rounded-xl shadow-lg p-2 md:p-2.5 transform rotate-[3deg] flex flex-col items-center">
-                             <Gift className="w-5 h-5 md:w-6 md:h-6 text-yellow-300" />
-                             <span className="text-[8px] md:text-[10px] font-bold uppercase leading-none text-white tracking-wider">SADA</span>
-                             <span className="text-sm md:text-base font-black uppercase leading-none text-yellow-300 drop-shadow-md">ZADARMO</span>
-                             <span className="text-[8px] md:text-[9px] uppercase font-black bg-white text-red-600 px-1.5 py-0.5 rounded">16€</span>
-                          </div>
-                       </div>
-
                        <ImageCarousel images={CAROUSEL_IMAGES} />
+                   </div>
+
+                   {/* KIT GRATIS BAR - Attached below carousel */}
+                   <div className="bg-red-600 text-white rounded-b-2xl shadow-lg px-4 py-2 flex items-center justify-center gap-3 border-4 border-t-0 border-red-600">
+                      <Gift className="w-5 h-5 md:w-6 md:h-6 text-yellow-300" />
+                      <span className="text-sm md:text-base font-black uppercase text-white">SADA PRÍSLUŠENSTVA</span>
+                      <span className="text-lg md:text-xl font-black uppercase text-yellow-300">ZADARMO</span>
+                      <span className="text-xs md:text-sm uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded">16€</span>
                    </div>
 
                </div>
