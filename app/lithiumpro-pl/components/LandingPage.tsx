@@ -487,6 +487,34 @@ const LandingPage = () => {
         </div>
 
         <div className="container mx-auto px-4 max-w-xl -mt-8">
+
+           {/* JAK ZAMÓWIĆ - 4 KROKI */}
+           <div className="bg-gray-50 rounded-2xl p-4 md:p-6 mb-6 border border-gray-200">
+              <h3 className="text-lg md:text-xl font-black text-gray-900 uppercase text-center mb-4">Jak Zamówić w 4 Krokach</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">1</div>
+                    <p className="text-xs font-bold text-gray-800">Wypełnij formularz</p>
+                    <p className="text-[10px] text-gray-500">Wpisz swoje dane poniżej</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">2</div>
+                    <p className="text-xs font-bold text-gray-800">Oddzwonimy</p>
+                    <p className="text-[10px] text-gray-500">Potwierdzimy dane</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">3</div>
+                    <p className="text-xs font-bold text-gray-800">Szybka Wysyłka</p>
+                    <p className="text-[10px] text-gray-500">Dostawa w 24/48 godzin</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">4</div>
+                    <p className="text-xs font-bold text-gray-800">Płatność przy odbiorze</p>
+                    <p className="text-[10px] text-gray-500">Płacisz gotówką kurierowi</p>
+                 </div>
+              </div>
+           </div>
+
            <OrderForm />
 
            <div className="text-center py-10 text-gray-400 text-xs">

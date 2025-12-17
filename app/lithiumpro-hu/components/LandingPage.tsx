@@ -487,6 +487,34 @@ const LandingPage = () => {
         </div>
 
         <div className="container mx-auto px-4 max-w-xl -mt-8">
+
+           {/* HOGYAN RENDELJEN - 4 LÉPÉS */}
+           <div className="bg-gray-50 rounded-2xl p-4 md:p-6 mb-6 border border-gray-200">
+              <h3 className="text-lg md:text-xl font-black text-gray-900 uppercase text-center mb-4">Hogyan Rendeljen 4 Lépésben</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">1</div>
+                    <p className="text-xs font-bold text-gray-800">Töltse ki az űrlapot</p>
+                    <p className="text-[10px] text-gray-500">Adja meg adatait lent</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">2</div>
+                    <p className="text-xs font-bold text-gray-800">Visszahívjuk</p>
+                    <p className="text-[10px] text-gray-500">Megerősítjük az adatokat</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">3</div>
+                    <p className="text-xs font-bold text-gray-800">Gyors Szállítás</p>
+                    <p className="text-[10px] text-gray-500">Érkezés 24/48 órán belül</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">4</div>
+                    <p className="text-xs font-bold text-gray-800">Utánvételes fizetés</p>
+                    <p className="text-[10px] text-gray-500">Készpénzzel fizet a futárnak</p>
+                 </div>
+              </div>
+           </div>
+
            <OrderForm />
 
            <div className="text-center py-10 text-gray-400 text-xs">

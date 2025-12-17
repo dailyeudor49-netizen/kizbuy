@@ -487,6 +487,34 @@ const LandingPage = () => {
         </div>
 
         <div className="container mx-auto px-4 max-w-xl -mt-8">
+
+           {/* COME ORDINARE - 4 STEP */}
+           <div className="bg-gray-50 rounded-2xl p-4 md:p-6 mb-6 border border-gray-200">
+              <h3 className="text-lg md:text-xl font-black text-gray-900 uppercase text-center mb-4">Come Ordinare in 4 Step</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">1</div>
+                    <p className="text-xs font-bold text-gray-800">Compila il modulo</p>
+                    <p className="text-[10px] text-gray-500">Inserisci i tuoi dati qui sotto</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">2</div>
+                    <p className="text-xs font-bold text-gray-800">Ti richiamiamo</p>
+                    <p className="text-[10px] text-gray-500">Confermiamo i dati</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">3</div>
+                    <p className="text-xs font-bold text-gray-800">Spedizione Rapida</p>
+                    <p className="text-[10px] text-gray-500">Arriva in 24/48 ore</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">4</div>
+                    <p className="text-xs font-bold text-gray-800">Paga alla consegna</p>
+                    <p className="text-[10px] text-gray-500">Paghi in contanti al corriere</p>
+                 </div>
+              </div>
+           </div>
+
            <OrderForm />
            
            <div className="text-center py-10 text-gray-400 text-xs">

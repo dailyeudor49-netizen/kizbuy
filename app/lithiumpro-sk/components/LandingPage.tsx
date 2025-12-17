@@ -487,6 +487,34 @@ const LandingPage = () => {
         </div>
 
         <div className="container mx-auto px-4 max-w-xl -mt-8">
+
+           {/* AKO OBJEDNAŤ - 4 KROKY */}
+           <div className="bg-gray-50 rounded-2xl p-4 md:p-6 mb-6 border border-gray-200">
+              <h3 className="text-lg md:text-xl font-black text-gray-900 uppercase text-center mb-4">Ako Objednať v 4 Krokoch</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">1</div>
+                    <p className="text-xs font-bold text-gray-800">Vyplňte formulár</p>
+                    <p className="text-[10px] text-gray-500">Zadajte svoje údaje nižšie</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">2</div>
+                    <p className="text-xs font-bold text-gray-800">Zavoláme vám</p>
+                    <p className="text-[10px] text-gray-500">Potvrdíme údaje</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">3</div>
+                    <p className="text-xs font-bold text-gray-800">Rýchle Doručenie</p>
+                    <p className="text-[10px] text-gray-500">Dorazí za 24/48 hodín</p>
+                 </div>
+                 <div className="text-center">
+                    <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-black text-lg mx-auto mb-2">4</div>
+                    <p className="text-xs font-bold text-gray-800">Platba pri doručení</p>
+                    <p className="text-[10px] text-gray-500">Zaplatíte hotovosťou kuriérovi</p>
+                 </div>
+              </div>
+           </div>
+
            <OrderForm />
 
            <div className="text-center py-10 text-gray-400 text-xs">
