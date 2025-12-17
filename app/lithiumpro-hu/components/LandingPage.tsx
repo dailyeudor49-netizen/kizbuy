@@ -68,7 +68,7 @@ const LandingPage = () => {
                    {/* INNER CONTAINER WITH OVERFLOW HIDDEN FOR IMAGE RADIUS */}
                    <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-100 relative bg-white">
 
-                       {/* ELETTA N.1 BADGE - Can stay inside */}
+                       {/* ELETTA N.1 BADGE - Top left */}
                        <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur border-2 border-green-600 rounded-full px-3 py-1 flex items-center gap-2 shadow-lg">
                           <div className="flex text-yellow-400">
                             <Star className="w-3 h-3 md:w-4 md:h-4 fill-current" />
@@ -80,17 +80,17 @@ const LandingPage = () => {
                           <span className="text-[10px] md:text-xs font-black text-green-800 uppercase">Top 2025</span>
                        </div>
 
-                       <ImageCarousel images={CAROUSEL_IMAGES} />
-                   </div>
+                       {/* KIT GRATIS STICKER - Top right */}
+                       <div className="absolute top-3 right-3 z-10">
+                          <div className="bg-red-600 text-white border-2 border-white rounded-xl shadow-lg p-2 md:p-2.5 transform rotate-[3deg] flex flex-col items-center">
+                             <Gift className="w-5 h-5 md:w-6 md:h-6 text-yellow-300" />
+                             <span className="text-[8px] md:text-[10px] font-bold uppercase leading-none text-white tracking-wider">CSOMAG</span>
+                             <span className="text-sm md:text-base font-black uppercase leading-none text-yellow-300 drop-shadow-md">INGYEN</span>
+                             <span className="text-[8px] md:text-[9px] uppercase font-black bg-white text-red-600 px-1.5 py-0.5 rounded">40.000Ft</span>
+                          </div>
+                       </div>
 
-                   {/* KIT GRATIS STICKER - Positioned below image */}
-                   <div className="flex justify-end mt-4 pr-2">
-                      <div className="bg-red-600 text-white border-[3px] border-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] p-3 md:p-4 transform rotate-[-3deg] flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                         <Gift className="w-6 h-6 md:w-8 md:h-8 mb-1 text-yellow-300" />
-                         <span className="text-[10px] md:text-xs font-bold uppercase leading-none text-white tracking-wider">KIEGÉSZÍTŐ CSOMAG</span>
-                         <span className="text-xl md:text-2xl font-black uppercase leading-none text-yellow-300 my-1 drop-shadow-md">INGYEN</span>
-                         <span className="text-[10px] md:text-xs uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded shadow-sm">Értéke 40.000 Ft</span>
-                      </div>
+                       <ImageCarousel images={CAROUSEL_IMAGES} />
                    </div>
 
                </div>
