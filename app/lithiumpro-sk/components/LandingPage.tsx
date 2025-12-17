@@ -88,7 +88,7 @@ const LandingPage = () => {
                       <Gift className="w-5 h-5 md:w-6 md:h-6 text-yellow-300" />
                       <span className="text-sm md:text-base font-black uppercase text-white">SADA PRÍSLUŠENSTVA</span>
                       <span className="text-lg md:text-xl font-black uppercase text-yellow-300">ZADARMO</span>
-                      <span className="text-xs md:text-sm uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded">16€</span>
+                      <span className="text-xs md:text-sm uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded">100 €</span>
                    </div>
 
                </div>
@@ -123,7 +123,7 @@ const LandingPage = () => {
                     <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 mb-6">
                        <div className="flex flex-col items-center md:items-start">
                           <span className="text-gray-400 text-lg md:text-xl line-through font-bold">Cena {PRICE_OLD} {CURRENCY}</span>
-                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Ušetríte 11 €</span>
+                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Ušetríte 79 €</span>
                        </div>
                        <span className="text-7xl md:text-8xl font-black text-gray-900 tracking-tighter leading-none">{PRICE_PROMO}<span className="text-3xl">{CURRENCY}</span></span>
                     </div>

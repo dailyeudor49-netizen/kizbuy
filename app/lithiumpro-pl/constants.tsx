@@ -6,7 +6,7 @@ export const PRODUCT_NAME = "LITHIUM PRO 40V™";
 export const PRICE_PROMO = "279,00";
 export const PRICE_OLD = "558,00";
 export const DISCOUNT_PERCENT = "-50%";
-export const CURRENCY = "PLN";
+export const CURRENCY = "zł";
 
 // ==========================================
 // 1. CAROSELLO IMMAGINI (SLIDER IN ALTO)

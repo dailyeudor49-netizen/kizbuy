@@ -123,7 +123,7 @@ const LandingPage = () => {
                     <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 mb-6">
                        <div className="flex flex-col items-center md:items-start">
                           <span className="text-gray-400 text-lg md:text-xl line-through font-bold">Ár {PRICE_OLD} {CURRENCY}</span>
-                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Megtakarítás 27.900 Ft</span>
+                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Megtakarítás 25 999 Ft</span>
                        </div>
                        <span className="text-7xl md:text-8xl font-black text-gray-900 tracking-tighter leading-none">{PRICE_PROMO}<span className="text-3xl">{CURRENCY}</span></span>
                     </div>
