@@ -11,8 +11,10 @@ export interface GoogleAdsCountryConfig {
 export const GOOGLE_ADS_BY_COUNTRY: Record<string, GoogleAdsCountryConfig> = {
   // Add your country configurations here
   // 'hr': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
-  // 'it': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
   // 'de': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
+
+  // Italy - LithiumPro (TODO: Add your Google Ads Conversion ID and Label)
+  // 'it': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
 };
 
 /**

@@ -506,16 +506,17 @@ const LandingPage = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-white text-gray-400 py-12 text-center text-xs border-t border-gray-200 pb-40">
+      <footer className="bg-gray-900 text-gray-400 py-12 text-center text-xs pb-40">
         <div className="container mx-auto px-4">
-          <p className="mb-6 font-black text-gray-900 text-2xl tracking-tighter uppercase italic">{PRODUCT_NAME}</p>
+          <p className="mb-4 font-black text-white text-2xl tracking-tighter uppercase italic">{PRODUCT_NAME}</p>
+          <p className="text-gray-500 text-xs mb-6">LithiumPro™ je registrovaná ochranná známka a je distribuována společností <a href="https://kizbuy.com" className="text-green-500 hover:text-green-400 font-bold">Kizbuy</a></p>
           <div className="flex flex-wrap justify-center gap-6 mb-6 font-bold uppercase text-[10px] tracking-widest text-gray-500">
-            <span className="cursor-pointer hover:text-black">Zásady Ochrany Osobních Údajů</span>
-            <span className="cursor-pointer hover:text-black">Obchodní Podmínky</span>
-            <span className="cursor-pointer hover:text-black">Kontakt</span>
+            <span className="cursor-pointer hover:text-white">Zásady Ochrany Osobních Údajů</span>
+            <span className="cursor-pointer hover:text-white">Obchodní Podmínky</span>
+            <a href="mailto:info@kizbuy.com" className="cursor-pointer hover:text-white">Kontakt</a>
           </div>
           <p className="opacity-60 max-w-xs mx-auto leading-relaxed">
-             &copy; 2025 LithiumPro Tools.<br/>Všechna práva vyhrazena.
+             &copy; 2025 Kizbuy - LithiumPro Tools.<br/>Všechna práva vyhrazena.
           </p>
         </div>
       </footer>

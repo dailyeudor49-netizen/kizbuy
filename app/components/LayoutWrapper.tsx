@@ -12,7 +12,16 @@ const LANDING_ROUTES = [
   "/ty-hr",
   "/ty-bgn",
   "/ty-pl",
+  "/ty-hu",
+  "/ty-cz",
+  "/ty-sk",
   "/fb-superhub",
+  "/lithiumpro-it",
+  "/lithiumpro-pl",
+  "/lithiumpro-hu",
+  "/lithiumpro-cz",
+  "/lithiumpro-sk",
+  "/ty-lithiumpro-it",
 ];
 
 export default function LayoutWrapper({
