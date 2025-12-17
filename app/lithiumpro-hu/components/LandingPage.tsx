@@ -83,13 +83,13 @@ const LandingPage = () => {
                        <ImageCarousel images={CAROUSEL_IMAGES} />
                    </div>
 
-                   {/* KIT GRATIS STICKER - MOVED OUTSIDE to avoid clipping */}
-                   <div className="absolute -bottom-6 -right-2 z-20">
-                      <div className="bg-red-600 text-white border-[3px] border-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] p-3 md:p-5 transform rotate-[-6deg] flex flex-col items-center hover:scale-110 transition-transform duration-300">
-                         <Gift className="w-8 h-8 md:w-10 md:h-10 mb-1 text-yellow-300" />
-                         <span className="text-xs md:text-sm font-bold uppercase leading-none text-white tracking-wider">KIEGÉSZÍTŐ CSOMAG</span>
-                         <span className="text-2xl md:text-3xl font-black uppercase leading-none text-yellow-300 my-1 drop-shadow-md">INGYEN</span>
-                         <span className="text-xs uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded shadow-sm">Értéke 40.000 Ft</span>
+                   {/* KIT GRATIS STICKER - Positioned below image */}
+                   <div className="flex justify-end mt-4 pr-2">
+                      <div className="bg-red-600 text-white border-[3px] border-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] p-3 md:p-4 transform rotate-[-3deg] flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                         <Gift className="w-6 h-6 md:w-8 md:h-8 mb-1 text-yellow-300" />
+                         <span className="text-[10px] md:text-xs font-bold uppercase leading-none text-white tracking-wider">KIEGÉSZÍTŐ CSOMAG</span>
+                         <span className="text-xl md:text-2xl font-black uppercase leading-none text-yellow-300 my-1 drop-shadow-md">INGYEN</span>
+                         <span className="text-[10px] md:text-xs uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded shadow-sm">Értéke 40.000 Ft</span>
                       </div>
                    </div>
 
