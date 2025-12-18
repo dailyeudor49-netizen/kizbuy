@@ -17,15 +17,28 @@ const LANDING_ROUTES = [
   "/ty-sk",
   "/fb-superhub",
   "/ty-lithiumpro-it",
+  "/ty-titansaw-hu",
+  "/ty-titansaw-cz",
+  "/ty-titansaw-pl",
+  "/ty-titansaw-lt",
 ];
 
-// Routes that should show only Kizbuy footer (no header)
-const FOOTER_ONLY_ROUTES = [
+// Routes that should show only Kizbuy footer (no header) with LithiumPro brand
+const LITHIUMPRO_ROUTES = [
   "/lithiumpro-it",
   "/lithiumpro-pl",
   "/lithiumpro-hu",
   "/lithiumpro-cz",
   "/lithiumpro-sk",
+];
+
+// Routes that should show only Kizbuy footer (no header) with Titansaw brand
+const TITANSAW_ROUTES = [
+  "/titansaw-it",
+  "/titansaw-hu",
+  "/titansaw-cz",
+  "/titansaw-pl",
+  "/titansaw-lt",
 ];
 
 export default function LayoutWrapper({
@@ -38,18 +51,30 @@ export default function LayoutWrapper({
   // Check if current route is a landing page (no header/footer)
   const isLandingPage = LANDING_ROUTES.some(route => pathname?.startsWith(route));
 
-  // Check if current route should show only footer (lithiumpro landings)
-  const isFooterOnly = FOOTER_ONLY_ROUTES.some(route => pathname?.startsWith(route));
+  // Check if current route should show only footer with LithiumPro brand
+  const isLithiumProLanding = LITHIUMPRO_ROUTES.some(route => pathname?.startsWith(route));
+
+  // Check if current route should show only footer with Titansaw brand
+  const isTitansawLanding = TITANSAW_ROUTES.some(route => pathname?.startsWith(route));
 
   if (isLandingPage) {
     return <>{children}</>;
   }
 
-  if (isFooterOnly) {
+  if (isLithiumProLanding) {
     return (
       <>
         {children}
-        <Footer />
+        <Footer showLithiumProBrand />
+      </>
+    );
+  }
+
+  if (isTitansawLanding) {
+    return (
+      <>
+        {children}
+        <Footer showTitansawBrand />
       </>
     );
   }

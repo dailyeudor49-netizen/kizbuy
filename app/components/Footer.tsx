@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-export default function Footer() {
+interface FooterProps {
+  showLithiumProBrand?: boolean;
+  showTitansawBrand?: boolean;
+}
+
+export default function Footer({ showLithiumProBrand = false, showTitansawBrand = false }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -12,9 +17,16 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mb-3">
               Premium tech gadgets and electronics at wholesale prices. Fast delivery worldwide.
             </p>
-            <p className="text-gray-400 text-sm mb-3">
-              <span className="text-green-400 font-semibold">LithiumPro™</span> is a registered trademark distributed by Kizbuy.
-            </p>
+            {showLithiumProBrand && (
+              <p className="text-gray-400 text-sm mb-3">
+                <span className="text-green-400 font-semibold">LithiumPro™</span> is a registered trademark distributed by Kizbuy.
+              </p>
+            )}
+            {showTitansawBrand && (
+              <p className="text-gray-400 text-sm mb-3">
+                <span className="text-orange-400 font-semibold">Titansaw™</span> is a registered trademark distributed by Kizbuy.
+              </p>
+            )}
             <div className="text-gray-400 text-sm space-y-1">
               <p>info@kizbuy.com</p>
               <p>27 Buchanan Enterprise Centre, Glasgow</p>
