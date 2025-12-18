@@ -634,7 +634,7 @@ const Reviews: React.FC = () => {
         {/* Featured Review Image */}
         <div className="mb-8">
           <img
-            src="/images/titansaw-img/RECENSIONI 1 TOITANSOW.webp"
+            src="/images/titansaw-img/recensione-3.webp"
             alt="Recensioni clienti verificate"
             className="w-full rounded-xl shadow-lg border border-slate-200"
           />
@@ -656,7 +656,7 @@ const Reviews: React.FC = () => {
               "Non ci credevo finché non l'ho provata. Ho tagliato legna per il camino per 2 ore senza stancarmi. La potenza è assurda per una cosa così piccola."
             </p>
             <img
-              src="/images/titansaw-img/recensione 1.webp"
+              src="/images/titansaw-img/recensione-1.webp"
               alt="Foto recensione cliente"
               className="w-full h-40 object-cover rounded-lg border border-slate-200"
             />
@@ -676,7 +676,7 @@ const Reviews: React.FC = () => {
               "Arrivata in 24 ore esatte. Pagato al corriere che è comodissimo. La uso per potare l'uliveto, va che è una meraviglia. Consigliata."
             </p>
             <img
-              src="/images/titansaw-img/recensione 2.webp"
+              src="/images/titansaw-img/recensione-2.webp"
               alt="Foto recensione cliente"
               className="w-full h-40 object-cover rounded-lg border border-slate-200"
             />
@@ -792,11 +792,20 @@ const OrderForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.phone || !formData.address) {
+      alert("Per favore, compila tutti i campi obbligatori");
+      return;
+    }
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
+
+    // Save data to sessionStorage for conversion tracking
+    sessionStorage.setItem('ec_name', formData.name);
+    sessionStorage.setItem('ec_phone', formData.phone);
+    sessionStorage.setItem('ec_address', formData.address);
+    sessionStorage.setItem('ec_value', '69.90');
+
+    // Redirect to thank you page
+    window.location.href = '/ty-titansaw-it';
   };
 
   if (isSuccess) {
