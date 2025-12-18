@@ -75,7 +75,7 @@ export default function ThankYouPage() {
         // Purchase SK conversion
         window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/XXXXXXXXXXXXXX', // TODO: Replace with actual SK conversion label
+          'send_to': 'AW-17261661993/VPSxCNe01M8bEKmegKdA',
           'value': ecValue,
           'currency': 'EUR',
           'transaction_id': transactionId,

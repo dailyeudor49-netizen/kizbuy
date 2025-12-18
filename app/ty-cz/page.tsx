@@ -75,7 +75,7 @@ export default function ThankYouPage() {
         // Purchase CZ conversion
         window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/XXXXXXXXXXXXXX', // TODO: Replace with actual CZ conversion label
+          'send_to': 'AW-17261661993/TQd0CMyJ488bEKmegKdA',
           'value': ecValue,
           'currency': 'CZK',
           'transaction_id': transactionId,

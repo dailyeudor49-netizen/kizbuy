@@ -75,7 +75,7 @@ export default function ThankYouPage() {
         // Purchase HU conversion
         window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/XXXXXXXXXXXXXX', // TODO: Replace with actual HU conversion label
+          'send_to': 'AW-17261661993/6WDZCOun1M8bEKmegKdA',
           'value': ecValue,
           'currency': 'HUF',
           'transaction_id': transactionId,

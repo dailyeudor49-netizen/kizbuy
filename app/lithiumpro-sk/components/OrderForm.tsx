@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Truck, Banknote } from 'lucide-react';
 import { CountdownTimer } from './CountdownTimer';
 import { PRICE_PROMO, CURRENCY } from '../constants';
@@ -16,6 +16,21 @@ export const OrderForm: React.FC = () => {
 
   const priceNum = parseFloat(PRICE_PROMO.replace(',', '.'));
 
+  // Load fingerprint script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://offers.uncappednetwork.com/forms/tmfp/';
+    script.crossOrigin = 'anonymous';
+    script.defer = true;
+    document.head.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,11 +45,55 @@ export const OrderForm: React.FC = () => {
 
     setLoading(true);
 
+    // Save data to sessionStorage for conversion tracking
     sessionStorage.setItem('ec_name', formData.name);
     sessionStorage.setItem('ec_phone', formData.phone);
     sessionStorage.setItem('ec_address', formData.address);
     sessionStorage.setItem('ec_value', priceNum.toString());
 
+    try {
+      // Get fingerprint from hidden input (populated by network script)
+      const tmfpInput = document.querySelector('input[name="tmfp"]') as HTMLInputElement;
+      const fingerprint = tmfpInput?.value || '';
+
+      // Get UTM parameters from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmParams: Record<string, string> = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+        const value = urlParams.get(param);
+        if (value) utmParams[param] = value;
+      });
+
+      // Send to our API proxy (avoids CORS issues)
+      const response = await fetch('/api/network-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          country: 'sk',
+          name: formData.name,
+          tel: formData.phone,
+          address: formData.address,
+          tmfp: fingerprint,
+          ua: navigator.userAgent,
+          utmParams,
+        }),
+      });
+
+      const result = await response.json();
+      console.log('Network API response:', result);
+
+      // If DOUBLE, set flag to skip Google Ads conversion
+      if (result.message === 'DOUBLE') {
+        sessionStorage.setItem('skipConversion', 'true');
+      }
+
+    } catch (error) {
+      console.error('Network API error:', error);
+    }
+
+    // Redirect to thank you page
     window.location.href = '/ty-sk';
   };
 
@@ -52,6 +111,9 @@ export const OrderForm: React.FC = () => {
         <CountdownTimer />
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Hidden input for fingerprint */}
+          <input type="hidden" name="tmfp" />
+
           <div>
             <label className="block text-gray-800 font-bold mb-1 text-base">Meno a Priezvisko <span className="text-red-600">*</span></label>
             <input

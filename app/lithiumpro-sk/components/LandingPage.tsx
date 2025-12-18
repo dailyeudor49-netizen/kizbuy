@@ -20,6 +20,14 @@ const LandingPage = () => {
   return (
     <div className="pb-24 md:pb-0 bg-white min-h-screen font-sans text-gray-900 overflow-x-hidden">
 
+      {/* Network Click Pixel - tracks landing page views */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://offers.uncappednetwork.com/forms/api/ck/?o=2626&uid=0191b25c-22d2-7f55-9d9b-79b67cebbff3&lp=2653"
+        style={{ width: '1px', height: '1px', display: 'none' }}
+        alt=""
+      />
+
       {/* HEADER */}
       <header className="bg-white py-4 sticky top-0 z-[60] shadow-md border-b border-gray-100">
         <div className="container mx-auto px-4 flex justify-between items-center max-w-7xl">
