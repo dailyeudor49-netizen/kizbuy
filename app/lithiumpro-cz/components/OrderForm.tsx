@@ -118,11 +118,6 @@ export const OrderForm: React.FC = () => {
             )}
           </button>
 
-          <div className="flex items-center justify-center gap-4 opacity-50 grayscale mt-2">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png" className="h-4" alt="Mastercard" />
-             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" className="h-4" alt="Visa" />
-             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4" alt="Paypal" />
-          </div>
         </form>
       </div>
     </div>

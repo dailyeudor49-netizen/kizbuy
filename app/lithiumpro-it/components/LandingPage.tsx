@@ -88,7 +88,6 @@ const LandingPage = () => {
                       <Gift className="w-5 h-5 md:w-6 md:h-6 text-yellow-300" />
                       <span className="text-sm md:text-base font-black uppercase text-white">KIT ACCESSORI</span>
                       <span className="text-lg md:text-xl font-black uppercase text-yellow-300">GRATIS</span>
-                      <span className="text-xs md:text-sm uppercase font-black bg-white text-red-600 px-2 py-0.5 rounded">Valore €100</span>
                    </div>
 
                </div>
