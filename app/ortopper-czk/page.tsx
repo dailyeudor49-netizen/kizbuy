@@ -1,0 +1,860 @@
+"use client";
+
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Truck, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight,
+  Sparkles, Info, Bone, Activity, Zap, BedDouble,
+  UserCheck, Brain, Anchor, BadgeCheck, X, Check,
+  ArrowRight, Package, Quote, Star, HelpCircle, ChevronDown, Lock
+} from 'lucide-react';
+
+// --- TYPES ---
+type BedSize = 'Jednolůžko' | 'Jedenapůl' | 'Dvojlůžko' | 'King';
+
+interface Testimonial {
+  id: number;
+  name: string;
+  city: string;
+  text: string;
+  rating: number;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface HeroProps {
+  selectedSize: BedSize;
+  onSelectSize: (size: BedSize) => void;
+}
+
+interface OrderFormProps {
+  selectedSize: BedSize;
+  onSelectSize: (size: BedSize) => void;
+}
+
+// --- CONSTANTS ---
+const PRICE = 1699;
+const PRICE_OLD = 3398; // -50%
+const CURRENCY = 'Kč';
+
+// Network config for CZK
+const NETWORK_CONFIG = {
+  uid: '0191b25c-22d2-7f55-9d9b-79b67cebbff3',
+  key: 'e0fe8e75c501eccab21f8d',
+  offer: '3044',
+  lp: '3078',
+};
+
+// --- COMPONENTS ---
+
+const Hero: React.FC<HeroProps> = ({ selectedSize, onSelectSize }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slideData = [
+    { img: "/images/ortopper-img/1-opt.png" },
+    { img: "/images/ortopper-img/2-opt.png" },
+    { img: "/images/ortopper-img/3-opt.png" },
+    { img: "/images/ortopper-img/4-opt.png" },
+    { img: "/images/ortopper-img/5-opt.png" },
+    { img: "/images/ortopper-img/6-opt.png" },
+    { img: "/images/ortopper-img/7-opt.png" },
+    { img: "/images/ortopper-img/8-opt.png" }
+  ];
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slideData.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [slideData.length]);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slideData.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? slideData.length - 1 : prev - 1));
+
+  const sizesMap: Record<BedSize, string> = {
+    'Jednolůžko': '80x190 cm',
+    'Jedenapůl': '120x190 cm',
+    'Dvojlůžko': '160x190 cm',
+    'King': '180x200 cm'
+  };
+
+  return (
+    <section className="w-full bg-white pb-8 pt-2 px-3 md:px-4 border-b-8 border-blue-600 overflow-hidden">
+      <div className="bg-yellow-300 text-center py-3 px-2 mb-6 -mx-3 md:-mx-4 shadow-sm border-b border-yellow-400">
+        <p className="text-sm md:text-xl font-black text-red-700 uppercase tracking-wide animate-pulse leading-tight">
+          POZOR: Nabídka &quot;Zdravá páteř&quot; končí o půlnoci
+        </p>
+      </div>
+
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-8 md:mb-12">
+          <div className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-xs md:text-lg font-black uppercase tracking-widest mb-4 border border-blue-200 shadow-sm">
+            Certifikovaná technologie Memory Foam HD
+          </div>
+          <h1 className="text-3xl md:text-6xl font-black text-gray-900 leading-tight uppercase mb-4 md:mb-6">
+            Přeměňte svou postel na <br className="hidden md:block" />
+            <span className="text-white bg-blue-600 px-3 py-1 rounded shadow-md transform -skew-x-6 inline-block mt-1 md:mt-0">ORTOPEDICKÝ SYSTÉM</span>
+          </h1>
+          <p className="text-lg md:text-3xl font-bold text-gray-600 leading-snug max-w-5xl mx-auto px-2">
+            Jediný topper s <span className="text-blue-600 underline decoration-4 decoration-blue-200">masážními vlnami</span>, který dekomprimuje páteř a <span className="text-white bg-red-600 px-2 rounded-sm whitespace-nowrap">ZMÍRŇUJE BOLEST</span> během spánku.
+          </p>
+        </div>
+
+        {/* MOBILE LAYOUT */}
+        <div className="lg:hidden flex flex-col gap-8">
+          <div>
+            <div className="relative w-full aspect-square bg-gray-100 rounded-2xl overflow-hidden border-4 border-gray-100 shadow-xl group">
+              <div className="absolute top-4 left-4 bg-red-600 text-white font-black px-4 py-2 text-sm z-20 rounded shadow-lg uppercase">
+                  Stop bolesti zad
+              </div>
+              <div className="w-full h-full relative">
+                  <img src={slideData[currentSlide].img} alt="Ortopedický topper" className="w-full h-full object-cover transition-opacity duration-500" />
+                  <button onClick={(e) => {e.preventDefault(); prevSlide()}} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white text-gray-900 z-10">
+                      <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button onClick={(e) => {e.preventDefault(); nextSlide()}} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white text-gray-900 z-10">
+                      <ChevronRight className="w-6 h-6" />
+                  </button>
+              </div>
+            </div>
+            <div className="flex justify-center gap-2 mt-3">
+              {slideData.map((slide, index) => (
+                <button key={index} onClick={() => setCurrentSlide(index)} className={`w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${currentSlide === index ? 'border-blue-600 ring-2 ring-blue-200 scale-105' : 'border-gray-200 opacity-70 hover:opacity-100'}`}>
+                  <img src={slide.img} alt={`Miniatura ${index + 1}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4 px-1">
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">VYROVNÁNÍ PÁTEŘE</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Udržuje krk, záda a pánev v přirozené ose. <span className="bg-yellow-200 px-1 font-bold">Konec s ranní ztuhlostí.</span></p>
+                </div>
+            </div>
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">MASÁŽ WAVE</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Vlnitý povrch reaktivuje průtok krve a redukuje <span className="font-bold text-red-600">noční brnění.</span></p>
+                </div>
+            </div>
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">REDUKCE TLAKU (7CM)</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Struktura <strong>Memory HD + HR</strong> (7cm) přijímá ramena a boky bez propadání.</p>
+                </div>
+            </div>
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">MAXIMÁLNÍ HYGIENA</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Potah <strong>Aloe Vera se zipem</strong> na praní + boční <strong>síťovina 3D Mesh</strong> proti pocení.</p>
+                </div>
+            </div>
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <Anchor className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">ÚPLNÁ STABILITA</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Protiskluzový spodek + <strong>4 široké zesílené gumy</strong>. <span className="bg-yellow-200 px-1 font-bold">Neposune se ani o milimetr.</span></p>
+                </div>
+            </div>
+            <div className="flex items-start bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                <Sparkles className="w-8 h-8 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-gray-900 text-lg uppercase mb-1 leading-none">UŠETŘETE 2000 Kč</h4>
+                    <p className="text-base text-gray-800 leading-snug mt-1">Nemusíte měnit matraci. <span className="bg-yellow-200 px-1 font-bold">Obnovte svou starou postel</span> a udělejte ji jako novou.</p>
+                </div>
+            </div>
+          </div>
+
+          <div className="w-full bg-white border-4 border-blue-600 rounded-3xl p-5 shadow-2xl relative mt-4">
+            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-[90%] text-center bg-red-600 text-white font-black px-4 py-2 uppercase tracking-widest rounded-lg shadow-lg text-sm animate-pulse border-2 border-white z-30">
+                Výprodej skladu
+            </div>
+            <div className="text-center mt-6 mb-6">
+                <p className="text-gray-500 font-bold text-base mb-1 uppercase tracking-wide">Katalogová cena</p>
+                <div className="flex items-center justify-center gap-2">
+                    <span className="text-gray-400 line-through text-3xl font-bold">{PRICE_OLD} {CURRENCY}</span>
+                    <span className="text-7xl font-black text-gray-900 tracking-tighter">{PRICE}</span>
+                    <span className="text-lg font-bold text-gray-900 self-end mb-4">{CURRENCY}</span>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3 text-left shadow-sm">
+                    <div className="flex items-center text-blue-800 font-black text-xs uppercase mb-1">
+                        <Info className="w-4 h-4 mr-1" /> Proč stojí všechny velikosti stejně?
+                    </div>
+                    <p className="text-xs text-gray-700 leading-tight">
+                        Abychom uvolnili místo ve skladu, <strong>snížili jsme ceny velkých rozměrů</strong> (King/Dvojlůžko) na cenu základního Jednolůžka.
+                        <br/><span className="text-red-600 font-bold">Využijte toho, platíte za malý a berete velký!</span>
+                    </p>
+                </div>
+            </div>
+            <div className="mb-6">
+                <p className="text-center text-base font-black text-gray-800 mb-4 uppercase flex items-center justify-center">
+                    <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span> Vyberte si velikost
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                    {(Object.keys(sizesMap) as BedSize[]).map((size) => (
+                        <button key={size} onClick={() => onSelectSize(size)} className={`py-3 px-1 rounded-xl border-2 transition-all shadow-sm flex flex-col items-center justify-center ${selectedSize === size ? 'bg-blue-900 border-blue-900 text-white ring-2 ring-blue-200 scale-[1.02] z-10' : 'bg-white border-gray-200 text-gray-600 hover:border-blue-400 hover:text-blue-600'}`}>
+                            <span className="text-sm font-black uppercase leading-none mb-1 text-center">{size}</span>
+                            <span className="text-[10px] font-bold opacity-80">{sizesMap[size]}</span>
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <a href="#order-form" className="block w-full bg-green-600 hover:bg-green-700 text-white text-center font-black text-2xl py-5 rounded-2xl shadow-xl border-b-8 border-green-800 uppercase transform transition active:scale-95 group leading-none">
+                CHCI SE CÍTIT DOBŘE
+                <span className="block text-xs font-bold text-green-100 mt-2 normal-case opacity-95 group-hover:text-white">Objednejte nyní, zaplaťte kurýrovi</span>
+            </a>
+            <div className="mt-6 pt-5 border-t border-gray-100 grid grid-cols-2 gap-3 text-sm font-bold text-gray-600 text-center">
+                <div className="flex items-center justify-center bg-gray-50 py-2 rounded border border-gray-100"><Truck className="w-5 h-5 mr-2 text-blue-600"/> Doručení 24-48h</div>
+                <div className="flex items-center justify-center bg-gray-50 py-2 rounded border border-gray-100"><ShieldCheck className="w-5 h-5 mr-2 text-blue-600"/> 2 roky záruky</div>
+            </div>
+          </div>
+        </div>
+
+        {/* DESKTOP LAYOUT */}
+        <div className="hidden lg:block">
+          <div className="flex flex-row gap-12 items-start mb-10">
+            <div className="w-1/2">
+              <div className="relative w-full aspect-square bg-gray-100 rounded-3xl overflow-hidden border-4 border-gray-100 shadow-xl group">
+                <div className="absolute top-6 left-6 bg-red-600 text-white font-black px-6 py-3 text-xl z-20 rounded shadow-lg uppercase">Stop bolesti zad</div>
+                <div className="w-full h-full relative">
+                    <img src={slideData[currentSlide].img} alt="Ortopedický topper" className="w-full h-full object-cover transition-opacity duration-500" />
+                    <button onClick={(e) => {e.preventDefault(); prevSlide()}} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg hover:bg-white text-gray-900 z-10"><ChevronLeft className="w-8 h-8" /></button>
+                    <button onClick={(e) => {e.preventDefault(); nextSlide()}} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg hover:bg-white text-gray-900 z-10"><ChevronRight className="w-8 h-8" /></button>
+                </div>
+              </div>
+              <div className="flex justify-center gap-3 mt-4">
+                {slideData.map((slide, index) => (
+                  <button key={index} onClick={() => setCurrentSlide(index)} className={`w-20 h-20 rounded-xl overflow-hidden border-3 transition-all ${currentSlide === index ? 'border-blue-600 ring-2 ring-blue-200 scale-105 shadow-lg' : 'border-gray-200 opacity-60 hover:opacity-100 hover:border-gray-300'}`}>
+                    <img src={slide.img} alt={`Miniatura ${index + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="w-1/2 space-y-4">
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <CheckCircle2 className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">VYROVNÁNÍ PÁTEŘE</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Udržuje krk, záda a pánev v přirozené ose. <span className="bg-yellow-200 px-1 font-bold">Konec s ranní ztuhlostí.</span></p>
+                  </div>
+              </div>
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <CheckCircle2 className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">MASÁŽ WAVE</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Vlnitý povrch reaktivuje průtok krve a redukuje <span className="font-bold text-red-600">noční brnění.</span></p>
+                  </div>
+              </div>
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <CheckCircle2 className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">REDUKCE TLAKU (7CM)</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Struktura <strong>Memory HD + HR</strong> (7cm) přijímá ramena a boky bez propadání.</p>
+                  </div>
+              </div>
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <CheckCircle2 className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">MAXIMÁLNÍ HYGIENA</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Potah <strong>Aloe Vera se zipem</strong> na praní + boční <strong>síťovina 3D Mesh</strong> proti pocení.</p>
+                  </div>
+              </div>
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <Anchor className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">ÚPLNÁ STABILITA</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Protiskluzový spodek + <strong>4 široké zesílené gumy</strong>. <span className="bg-yellow-200 px-1 font-bold">Neposune se ani o milimetr.</span></p>
+                  </div>
+              </div>
+              <div className="flex items-start bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-sm">
+                  <Sparkles className="w-10 h-10 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                  <div>
+                      <h4 className="font-black text-gray-900 text-2xl uppercase mb-1 leading-none">UŠETŘETE 2000 Kč</h4>
+                      <p className="text-xl text-gray-800 leading-snug mt-1">Nemusíte měnit matraci. <span className="bg-yellow-200 px-1 font-bold">Obnovte svou starou postel</span> a udělejte ji jako novou.</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full bg-white border-4 border-blue-600 rounded-3xl p-8 shadow-2xl relative">
+            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 text-center bg-red-600 text-white font-black px-6 py-2 uppercase tracking-widest rounded-lg shadow-lg text-lg animate-pulse border-2 border-white z-30">Výprodej skladu</div>
+            <div className="flex flex-row items-center justify-between gap-8 mt-4">
+              <div className="flex-1">
+                <p className="text-gray-500 font-bold text-lg mb-1 uppercase tracking-wide">Katalogová cena</p>
+                <div className="flex items-center gap-4">
+                    <span className="text-gray-400 line-through text-4xl font-bold">{PRICE_OLD} {CURRENCY}</span>
+                    <span className="text-8xl font-black text-gray-900 tracking-tighter">{PRICE}</span>
+                    <span className="text-xl font-bold text-gray-900 self-end mb-4">{CURRENCY}</span>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3 text-left shadow-sm max-w-md">
+                    <div className="flex items-center text-blue-800 font-black text-sm uppercase mb-1"><Info className="w-4 h-4 mr-1" /> Proč stojí všechny velikosti stejně?</div>
+                    <p className="text-sm text-gray-700 leading-tight">Abychom uvolnili místo ve skladu, <strong>snížili jsme ceny velkých rozměrů</strong>.<span className="text-red-600 font-bold"> Využijte toho, platíte za malý a berete velký!</span></p>
+                </div>
+              </div>
+              <div className="flex-1">
+                <p className="text-center text-lg font-black text-gray-800 mb-4 uppercase flex items-center justify-center"><span className="w-4 h-4 bg-blue-600 rounded-full mr-2"></span> Vyberte si velikost</p>
+                <div className="grid grid-cols-2 gap-3">
+                    {(Object.keys(sizesMap) as BedSize[]).map((size) => (
+                        <button key={size} onClick={() => onSelectSize(size)} className={`py-3 px-1 rounded-xl border-2 transition-all shadow-sm flex flex-col items-center justify-center ${selectedSize === size ? 'bg-blue-900 border-blue-900 text-white ring-4 ring-blue-200 scale-[1.02] z-10' : 'bg-white border-gray-200 text-gray-600 hover:border-blue-400 hover:text-blue-600'}`}>
+                            <span className="text-lg font-black uppercase leading-none mb-1 text-center">{size}</span>
+                            <span className="text-sm font-bold opacity-80">{sizesMap[size]}</span>
+                        </button>
+                    ))}
+                </div>
+              </div>
+              <div className="flex-1 flex flex-col">
+                <a href="#order-form" className="block w-full bg-green-600 hover:bg-green-700 text-white text-center font-black text-3xl py-6 rounded-2xl shadow-xl border-b-8 border-green-800 uppercase transform transition active:scale-95 group leading-none">
+                    CHCI SE CÍTIT DOBŘE
+                    <span className="block text-base font-bold text-green-100 mt-2 normal-case opacity-95 group-hover:text-white">Objednejte nyní, zaplaťte kurýrovi</span>
+                </a>
+                <div className="mt-4 grid grid-cols-2 gap-3 text-base font-bold text-gray-600 text-center">
+                    <div className="flex items-center justify-center bg-gray-50 py-3 rounded border border-gray-100"><Truck className="w-6 h-6 mr-2 text-blue-600"/> Doručení 24-48h</div>
+                    <div className="flex items-center justify-center bg-gray-50 py-3 rounded border border-gray-100"><ShieldCheck className="w-6 h-6 mr-2 text-blue-600"/> 2 roky záruky</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ProblemSolution: React.FC = () => {
+  return (
+    <section className="bg-gradient-to-b from-gray-50 to-white py-12 px-4">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-black text-center text-gray-900 mb-4 uppercase leading-tight">
+          Ničí vaše matrace <br className="md:hidden"/> <span className="text-red-600 underline decoration-4 decoration-yellow-400">vaši páteř?</span>
+        </h2>
+        <p className="text-center text-gray-700 font-bold text-lg md:text-2xl mb-12 max-w-3xl mx-auto">
+            Pokud trpíte některým z těchto problémů, viníkem je povrch, na kterém spíte.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:border-red-400 transition-colors">
+                <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-red-100"><Bone className="w-10 h-10 text-red-600" /></div>
+                <h3 className="font-black text-xl text-gray-900 mb-2 uppercase">Bolest beder</h3>
+                <p className="text-base text-gray-700 font-medium leading-relaxed">Budíte se s bolestí dolní části zad, protože matrace <span className="font-bold bg-yellow-100">nepodporuje přirozené zakřivení.</span></p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:border-red-400 transition-colors">
+                <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-red-100"><Activity className="w-10 h-10 text-red-600" /></div>
+                <h3 className="font-black text-xl text-gray-900 mb-2 uppercase">Ztuhlý krk</h3>
+                <p className="text-base text-gray-700 font-medium leading-relaxed">Ztuhlý krk ráno? To znamená, že ramena a hlava <span className="font-bold bg-yellow-100">nejsou během spánku vyrovnané.</span></p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:border-red-400 transition-colors">
+                <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-red-100"><Zap className="w-10 h-10 text-red-600" /></div>
+                <h3 className="font-black text-xl text-gray-900 mb-2 uppercase">Brnění</h3>
+                <p className="text-base text-gray-700 font-medium leading-relaxed">Budíte se se znecitlivělými rukama nebo nohama? Matrace <span className="font-bold bg-yellow-100">blokuje průtok krve.</span></p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:border-red-400 transition-colors">
+                <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-red-100"><BedDouble className="w-10 h-10 text-red-600" /></div>
+                <h3 className="font-black text-xl text-gray-900 mb-2 uppercase">Neklid</h3>
+                <p className="text-base text-gray-700 font-medium leading-relaxed">Převalujete se a hledáte pohodlnou polohu? Vaše tělo bojuje o pohodlí celou noc.</p>
+            </div>
+        </div>
+        <div className="text-center mt-12 p-6 md:p-8 bg-blue-50 rounded-2xl border-2 border-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl md:text-3xl font-black text-blue-900 uppercase mb-3 leading-tight">ŘEŠENÍM NENÍ MATRACE ZA 20 000 Kč</p>
+            <p className="text-gray-800 text-lg md:text-xl font-medium">Potřebujete korekční podporu, která se vám přizpůsobí. <br className="hidden md:block"/><span className="font-bold text-blue-700 bg-white px-1">Ortopedický topper</span> dělá přesně to.</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Mechanism: React.FC = () => {
+  return (
+    <section className="bg-white py-12 md:py-16 px-4 border-t border-gray-200">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase mb-4 leading-tight">TECHNOLOGIE <span className="text-blue-600">ORTOPEDICKÁ 3 ÚROVNĚ</span></h2>
+            <p className="text-gray-600 font-bold text-lg md:text-2xl max-w-4xl mx-auto">Věda kvalitního spánku ve 3 základních fázích.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200 group hover:shadow-2xl transition-shadow flex flex-col">
+                <div className="aspect-square w-full relative">
+                    <img src="/images/ortopper-img/decompressione-vertebrale-opt.gif" alt="Dekomprese páteře" className="w-full h-full object-cover" />
+                    <div className="absolute top-4 left-4 bg-blue-600 text-white font-black w-12 h-12 flex items-center justify-center rounded-full text-2xl shadow-lg border-2 border-white">1</div>
+                </div>
+                <div className="p-6 md:p-8 flex-1">
+                    <h4 className="font-black text-2xl text-gray-900 uppercase mb-3 md:mb-4">Dekomprese páteře</h4>
+                    <p className="text-gray-700 leading-relaxed text-lg md:text-xl font-medium">Viskoelastický materiál se milimetrově přizpůsobí tělu a vyplní prázdné prostory (bederní oblast). Umožňuje páteři se natáhnout a diskům se <span className="bg-yellow-100 font-bold px-1 text-gray-900 border-b-2 border-yellow-300">hydratovat</span> v noci.</p>
+                </div>
+            </div>
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200 group hover:shadow-2xl transition-shadow flex flex-col">
+                <div className="aspect-square w-full relative">
+                    <img src="/images/ortopper-img/profilo-bugnato-wave-opt.gif" alt="Vlnitý profil Wave" className="w-full h-full object-cover" />
+                    <div className="absolute top-4 left-4 bg-blue-600 text-white font-black w-12 h-12 flex items-center justify-center rounded-full text-2xl shadow-lg border-2 border-white">2</div>
+                </div>
+                <div className="p-6 md:p-8 flex-1">
+                    <h4 className="font-black text-2xl text-gray-900 uppercase mb-3 md:mb-4">Vlnitý profil &quot;Wave&quot;</h4>
+                    <p className="text-gray-700 leading-relaxed text-lg md:text-xl font-medium">Speciální vlnité zpracování vytváří <span className="bg-yellow-100 font-bold px-1 text-gray-900 border-b-2 border-yellow-300">pasivní mikro-masáž</span> při každém pohybu. Stimuluje mikrocirkulaci kapilár, redukuje otoky a zadržování vody.</p>
+                </div>
+            </div>
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200 group hover:shadow-2xl transition-shadow flex flex-col">
+                <div className="aspect-square w-full relative">
+                    <img src="/images/ortopper-img/zero-punti-pressione-opt.gif" alt="Nulové tlakové body" className="w-full h-full object-cover" />
+                    <div className="absolute top-4 left-4 bg-blue-600 text-white font-black w-12 h-12 flex items-center justify-center rounded-full text-2xl shadow-lg border-2 border-white">3</div>
+                </div>
+                <div className="p-6 md:p-8 flex-1">
+                    <h4 className="font-black text-2xl text-gray-900 uppercase mb-3 md:mb-4">Nulové tlakové body</h4>
+                    <p className="text-gray-700 leading-relaxed text-lg md:text-xl font-medium">Rozložením váhy rovnoměrně na <span className="bg-yellow-100 font-bold px-1 text-gray-900 border-b-2 border-yellow-300">7 CM tloušťky</span> eliminuje špičky tlaku na boky a ramena. Klíčové pro osoby s bolestmi kloubů a brněním.</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const BenefitsList: React.FC = () => {
+  return (
+    <section className="bg-blue-900 py-12 md:py-16 px-4 border-y-4 border-blue-800 text-white">
+      <div className="max-w-5xl mx-auto">
+        <h3 className="text-3xl md:text-5xl font-black text-center mb-10 uppercase leading-tight">Klinické a technické výhody</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="bg-blue-800 p-6 md:p-8 rounded-3xl border-2 border-blue-700 flex items-start hover:bg-blue-700 transition-colors shadow-lg">
+                <UserCheck className="w-10 h-10 md:w-12 md:h-12 text-green-400 mr-4 md:mr-5 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-xl md:text-2xl text-white mb-2 uppercase">Korekce držení těla</h4>
+                    <p className="text-blue-50 font-medium text-lg md:text-xl leading-snug">Ať spíte na zádech nebo na boku, topper udržuje přirozenou osu. Budíte se rovní, bez potřeby &quot;lupání&quot; páteře.</p>
+                </div>
+            </div>
+            <div className="bg-blue-800 p-6 md:p-8 rounded-3xl border-2 border-blue-700 flex items-start hover:bg-blue-700 transition-colors shadow-lg">
+                <Brain className="w-10 h-10 md:w-12 md:h-12 text-green-400 mr-4 md:mr-5 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-xl md:text-2xl text-white mb-2 uppercase">Boční síťovina 3D Mesh</h4>
+                    <p className="text-blue-50 font-medium text-lg md:text-xl leading-snug">Na rozdíl od uzavřených topperů naše technická boční síťovina zajišťuje stálý průtok vzduchu. <span className="text-white font-bold underline decoration-green-400">Konec s pocením.</span></p>
+                </div>
+            </div>
+            <div className="bg-blue-800 p-6 md:p-8 rounded-3xl border-2 border-blue-700 flex items-start hover:bg-blue-700 transition-colors shadow-lg">
+                <Anchor className="w-10 h-10 md:w-12 md:h-12 text-green-400 mr-4 md:mr-5 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-xl md:text-2xl text-white mb-2 uppercase">Úplná stabilita</h4>
+                    <p className="text-blue-50 font-medium text-lg md:text-xl leading-snug">Vybaven <span className="font-bold text-white bg-blue-600 px-1">skutečným protiskluzovým spodkem</span> a 4 širokými zesílenými gumami. Neposune se ani o milimetr.</p>
+                </div>
+            </div>
+            <div className="bg-blue-800 p-6 md:p-8 rounded-3xl border-2 border-blue-700 flex items-start hover:bg-blue-700 transition-colors shadow-lg">
+                <BadgeCheck className="w-10 h-10 md:w-12 md:h-12 text-green-400 mr-4 md:mr-5 flex-shrink-0 mt-1" />
+                <div>
+                    <h4 className="font-black text-xl md:text-2xl text-white mb-2 uppercase">Certifikovaná hygiena</h4>
+                    <p className="text-blue-50 font-medium text-lg md:text-xl leading-snug">Potah Aloe Vera se zipem pro rychlé praní. Antiroztoči a antialergické materiály, ideální pro citlivé osoby.</p>
+                </div>
+            </div>
+        </div>
+        <div className="text-center mt-12">
+             <a href="#order-form" className="inline-block bg-green-500 hover:bg-green-600 text-white font-black text-xl md:text-3xl py-5 px-10 md:py-6 md:px-16 rounded-full shadow-2xl border-b-8 border-green-700 transform transition hover:scale-105 uppercase tracking-wide">POCÍTĚTE ÚLEVU NYNÍ</a>
+             <p className="mt-4 text-sm md:text-lg text-blue-200 font-bold uppercase tracking-widest">14denní záruka spokojenosti nebo vrácení peněz</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Installation: React.FC = () => {
+  return (
+    <section className="py-16 px-4 bg-white">
+      <div className="max-w-5xl mx-auto text-center">
+        <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-12 uppercase">Instalace za 30 sekund</h3>
+        <div className="flex flex-col md:flex-row justify-center items-start gap-10">
+            <div className="flex flex-col items-center flex-1">
+                <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-3xl font-black text-blue-600 mb-4 border-4 border-blue-100 shadow-sm">1</div>
+                <p className="font-black text-2xl text-gray-900 uppercase mb-2">Rozbalte</p>
+                <p className="text-lg text-gray-600 font-medium leading-snug">Otevřete vakuové balení a pohodlně rozložte na starou matraci.</p>
+            </div>
+            <div className="hidden md:block w-16 h-2 bg-gray-100 mt-10 rounded-full"></div>
+            <div className="flex flex-col items-center flex-1">
+                <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-3xl font-black text-blue-600 mb-4 border-4 border-blue-100 shadow-sm">2</div>
+                <p className="font-black text-2xl text-gray-900 uppercase mb-2">Připevněte</p>
+                <p className="text-lg text-gray-600 font-medium leading-snug">Zapněte 4 zesílené gumy na rozích pro perfektní stabilitu.</p>
+            </div>
+            <div className="hidden md:block w-16 h-2 bg-gray-100 mt-10 rounded-full"></div>
+            <div className="flex flex-col items-center flex-1">
+                <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-3xl font-black text-blue-600 mb-4 border-4 border-blue-100 shadow-sm">3</div>
+                <p className="font-black text-2xl text-gray-900 uppercase mb-2">Spěte</p>
+                <p className="text-lg text-gray-600 font-medium leading-snug">Užijte si okamžitý komfort a rozlučte se s ranními bolestmi.</p>
+            </div>
+        </div>
+        <div className="mt-12 bg-yellow-50 inline-block px-6 py-4 rounded-xl border-2 border-yellow-200 text-base md:text-lg text-yellow-900 font-bold max-w-3xl">
+            Poznámka: Zasíláme <span className="font-black uppercase">vakuově srolovaný</span>. Doporučujeme počkat 24-48h na plné obnovení objemu (7cm), ale můžete ho používat už po 4 hodinách.
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Comparison: React.FC = () => {
+  const features = [
+    { name: "Vnitřní struktura", us: { text: "DVOJITÁ VRSTVA (Memory+HR)", highlight: true }, them: "Jednoduchá vrstva" },
+    { name: "Celková tloušťka", us: { text: "7 CM SKUTEČNÝCH", highlight: true }, them: "3-4 CM maximálně" },
+    { name: "Typ podpory", us: { text: "Ortopedická aktivní", highlight: false }, them: "Pasivní / Měkká" },
+    { name: "Vliv na páteř", us: { text: "Dekomprese", highlight: false }, them: "Propadání" },
+    { name: "Technologie povrchu", us: { text: "Masážní vlnitý profil", highlight: false }, them: "Hladký / Horký" }
+  ];
+
+  return (
+    <section className="py-12 md:py-16 px-3 md:px-4 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <h3 className="text-2xl md:text-4xl font-black text-center text-gray-900 mb-10 uppercase leading-tight">Proč to není obyčejná <br/>&quot;pěna&quot;</h3>
+        <div className="hidden md:block bg-white rounded-2xl shadow-xl border-2 border-gray-200 overflow-hidden">
+            <table className="w-full text-left border-collapse">
+                <thead>
+                    <tr className="bg-gray-900 text-white">
+                        <th className="p-6 w-1/3 text-xl uppercase font-bold pl-8">Vlastnost</th>
+                        <th className="p-6 w-1/3 bg-blue-600 text-xl uppercase text-center font-black border-b-8 border-blue-800 relative">NÁŠ TOPPER<div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-3 py-1 uppercase tracking-wide">Bestseller</div></th>
+                        <th className="p-6 w-1/3 bg-gray-100 text-gray-500 text-xl uppercase text-center font-bold">GENERICKÉ ONLINE</th>
+                    </tr>
+                </thead>
+                <tbody className="text-lg font-medium">
+                    {features.map((f, i) => (
+                        <tr key={i} className="border-b border-gray-100 last:border-0">
+                            <td className="p-6 font-bold text-gray-900">{f.name}</td>
+                            <td className="p-6 text-center bg-blue-50 font-bold text-blue-900 text-xl"><div className="flex flex-col items-center gap-2"><Check className="w-8 h-8 text-green-600"/> <span className={f.us.highlight ? "bg-yellow-200 px-2 py-0.5 rounded" : ""}>{f.us.text}</span></div></td>
+                            <td className="p-6 text-center text-gray-400 text-lg"><div className="flex flex-col items-center gap-2"><X className="w-6 h-6"/> {f.them}</div></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+        <div className="md:hidden space-y-6">
+            {features.map((f, i) => (
+                <div key={i} className="bg-white rounded-2xl shadow-lg border-2 border-gray-100 overflow-hidden relative">
+                    <div className="bg-gray-900 text-white text-center py-3 font-black text-lg uppercase tracking-wide">{f.name}</div>
+                    <div className="flex items-stretch relative">
+                         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-200 rounded-full w-8 h-8 flex items-center justify-center font-black text-[10px] text-gray-400 shadow-sm">VS</div>
+                        <div className="flex-1 bg-blue-50 p-4 text-center border-r border-gray-100 flex flex-col items-center justify-start pt-8 pb-6">
+                            <div className="absolute top-12 left-0 w-1/2 text-center"><span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">MY</span></div>
+                            <div className="flex-grow flex flex-col items-center justify-center mt-2"><Check className="w-8 h-8 text-green-600 mb-2"/><span className={`text-base font-black text-blue-900 leading-tight ${f.us.highlight ? "bg-yellow-200 px-1 shadow-sm" : ""}`}>{f.us.text}</span></div>
+                        </div>
+                        <div className="flex-1 bg-white p-4 text-center flex flex-col items-center justify-start pt-8 pb-6">
+                            <div className="absolute top-12 right-0 w-1/2 text-center"><span className="bg-gray-200 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">OSTATNÍ</span></div>
+                            <div className="flex-grow flex flex-col items-center justify-center mt-2"><X className="w-6 h-6 text-gray-300 mb-2"/><span className="text-sm font-bold text-gray-400 leading-tight">{f.them}</span></div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <div className="text-center mt-12 flex justify-center items-center text-blue-700 font-bold text-lg cursor-pointer hover:underline group">
+             <a href="#order-form" className="flex items-center bg-blue-50 px-6 py-3 rounded-full border border-blue-200 shadow-sm">Vyberte si certifikovanou kvalitu <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"/></a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Unboxing: React.FC = () => {
+  return (
+    <section className="py-12 px-4 bg-white border-t border-gray-200">
+      <div className="max-w-4xl mx-auto bg-blue-50 border-4 border-blue-200 rounded-3xl p-5 md:p-10">
+        <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 md:mb-8 flex items-center justify-center uppercase"><Package className="mr-3 w-8 h-8 md:w-10 md:h-10 text-blue-600" /> Co dostanete domů</h3>
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
+            <div className="w-full md:w-1/2">
+                <div className="aspect-square bg-white rounded-2xl shadow-lg border-2 border-gray-200 overflow-hidden relative">
+                    <img src="/images/ortopper-img/8-opt.png" alt="Obsah balení topper" className="w-full h-full object-cover" />
+                    <div className="absolute bottom-0 left-0 right-0 bg-blue-900 text-white text-xs md:text-sm p-2 md:p-3 text-center font-bold uppercase">Hygienicky vakuově baleno</div>
+                </div>
+            </div>
+            <div className="w-full md:w-1/2 text-left">
+                <ul className="space-y-4 font-bold text-gray-900 text-lg md:text-xl">
+                    <li className="flex items-start bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+                        <span className="bg-blue-600 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-sm md:text-lg mr-3 flex-shrink-0 font-black mt-0.5">&#10003;</span>
+                        <span className="leading-tight">1x Ortopedický topper (vybraná velikost)</span>
+                    </li>
+                    <li className="flex items-start bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+                        <span className="bg-blue-600 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-sm md:text-lg mr-3 flex-shrink-0 font-black mt-0.5">&#10003;</span>
+                        <span className="leading-tight">1x Potah Aloe Vera se zipem (již nasazený)</span>
+                    </li>
+                    <li className="flex items-start bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+                        <span className="bg-blue-600 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-sm md:text-lg mr-3 flex-shrink-0 font-black mt-0.5">&#10003;</span>
+                        <span className="leading-tight">1x Voděodolný chránič matrace s gumami</span>
+                    </li>
+                    <li className="flex items-start bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+                        <span className="bg-blue-600 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-sm md:text-lg mr-3 flex-shrink-0 font-black mt-0.5">&#10003;</span>
+                        <span className="text-blue-800 uppercase leading-tight">Oficiální záruka 2 roky</span>
+                    </li>
+                </ul>
+                <div className="mt-6 text-center md:text-left text-base md:text-lg text-blue-900 font-bold">
+                    <span className="inline-block bg-blue-200 px-3 py-2 md:px-4 rounded-lg border border-blue-300 leading-tight">Doprava zdarma kurýrem 24-48h</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Reviews: React.FC = () => {
+  const reviews: (Testimonial & { image?: string })[] = [
+    { id: 1, name: "Jan K.", city: "Praha", text: "Roky trpím ischiasem. Můj fyzioterapeut doporučil výměnu matrace, ale byla příliš drahá. S tímto topperem jsem vyřešil 90% problému. Ráno se mohu ohnout bez bolesti. Neuvěřitelné.", rating: 5 },
+    { id: 2, name: "Marie V.", city: "Brno", text: "Mám výhřez krční ploténky, který způsoboval závratě po probuzení. Od té doby, co používám Ortopedický topper, je krk mnohem uvolněnější. Podpora je pevná, ale příjemná.", rating: 5 },
+    { id: 3, name: "Petr B.", city: "Ostrava", text: "Pracuji ve skladu a večer mám záda v troskách. Tento topper mě doslova omlazuje. Cítíte, jak se páteř natahuje, když si lehnete. Velmi rychlé doručení.", rating: 5, image: "/images/ortopper-img/recensione-1.jpg" },
+    { id: 4, name: "Eva M.", city: "Plzeň", text: "Byla jsem skeptická ohledně 'masážního' efektu, ale je to pravda. Mám problémy s krevním oběhem v nohou a budím se mnohem méně oteklá. Vlnitý povrch propouští vzduch.", rating: 5 },
+    { id: 5, name: "Dr. Štěpán N.", city: "Olomouc", text: "Koupil jsem ho pro svou starší maminku, která tráví hodně času v posteli. Skvělý pro prevenci proleženin a tlakových bolestí. Látka je svěží a hygienická. Doporučuji.", rating: 5 },
+    { id: 6, name: "Barbora S.", city: "Liberec", text: "Moje matrace se stala jednou velkou dírou. Budila jsem se s bolestí ledvin. Za 1699 Kč jsem se vyhnula výdaji 12 000 Kč. Teď je páteř rovná a spím 8 hodin bez přerušení.", rating: 4 },
+  ];
+
+  return (
+    <section className="py-12 px-4 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <h3 className="text-3xl md:text-4xl font-black text-center text-gray-900 mb-4 uppercase leading-tight">Příběhy každodenního uzdravení</h3>
+        <p className="text-center text-gray-600 font-bold mb-10 md:mb-12 max-w-2xl mx-auto text-lg md:text-xl">Tisíce Čechů přestaly žít s bolestí. Zde jsou jejich skutečné zkušenosti.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {reviews.map((r) => (
+                <div key={r.id} className="bg-gray-50 p-6 md:p-8 rounded-2xl border-2 border-gray-100 shadow-sm relative hover:shadow-lg transition-shadow flex flex-col">
+                    <Quote className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-200 w-8 h-8 md:w-10 md:h-10 fill-current" />
+                    <div className="flex text-yellow-400 mb-4">{[...Array(5)].map((_, i) => <Star key={i} className={`w-5 h-5 fill-current ${i >= r.rating ? 'text-gray-300' : ''}`} />)}</div>
+                    <p className="text-gray-800 text-lg md:text-xl mb-6 font-medium leading-relaxed italic flex-grow">&quot;{r.text}&quot;</p>
+                    {r.image && (<div className="mb-4 rounded-xl overflow-hidden border-2 border-blue-100"><img src={r.image} alt="Fotografie produktu od zákazníka" className="w-full h-48 object-cover" /></div>)}
+                    <div className="mt-auto flex items-center border-t border-gray-200 pt-4">
+                        <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-black text-lg mr-4">{r.name.charAt(0)}</div>
+                        <div>
+                            <div className="text-base font-bold text-gray-900">{r.name} <span className="text-gray-500 font-normal">- {r.city}</span></div>
+                            <div className="text-green-600 text-xs font-bold uppercase mt-1 flex items-center"><span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Ověřený nákup</div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <div className="text-center mt-10 md:mt-12">
+             <a href="#order-form" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-black text-xl md:text-2xl py-5 px-10 md:px-12 rounded-xl shadow-xl uppercase tracking-wide transform transition hover:scale-105">Přidejte se ke spícím bez bolesti</a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const OrderForm: React.FC<OrderFormProps> = ({ selectedSize, onSelectSize }) => {
+  const [formData, setFormData] = useState({ name: '', fullAddress: '', phone: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const tmfpRef = useRef<HTMLInputElement>(null);
+
+  const sizesMap: Record<BedSize, string> = {
+    'Jednolůžko': '80x190',
+    'Jedenapůl': '120x190',
+    'Dvojlůžko': '160x190',
+    'King': '180x200'
+  };
+
+  // Load Network fingerprint script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://offers.uncappednetwork.com/forms/tmfp/';
+    script.crossOrigin = 'anonymous';
+    script.defer = true;
+    document.head.appendChild(script);
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Get UTM params from URL
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Prepare form data for Network API
+    const networkFormData = new FormData();
+    networkFormData.append('uid', NETWORK_CONFIG.uid);
+    networkFormData.append('key', NETWORK_CONFIG.key);
+    networkFormData.append('offer', NETWORK_CONFIG.offer);
+    networkFormData.append('lp', NETWORK_CONFIG.lp);
+    networkFormData.append('name', formData.name);
+    networkFormData.append('tel', formData.phone);
+    networkFormData.append('street-address', formData.fullAddress);
+
+    // Add fingerprint if available
+    const tmfpValue = tmfpRef.current?.value || '';
+    if (tmfpValue) {
+      networkFormData.append('tmfp', tmfpValue);
+    }
+
+    // Add UTM params if present
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+      const value = urlParams.get(param);
+      if (value) networkFormData.append(param, value);
+    });
+
+    try {
+      // Send to Network API
+      const response = await fetch('https://offers.uncappednetwork.com/forms/api/', {
+        method: 'POST',
+        body: networkFormData,
+      });
+
+      const data = await response.json();
+      console.log('Network API response:', data);
+
+      // Store data for TY page
+      sessionStorage.setItem('orderData', JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        address: formData.fullAddress,
+        size: selectedSize,
+        price: PRICE,
+        currency: CURRENCY,
+        product: 'Ortopedický Topper'
+      }));
+
+      // Store Enhanced Conversions data for TY page
+      sessionStorage.setItem('ec_phone', formData.phone);
+      sessionStorage.setItem('ec_address', formData.fullAddress);
+      sessionStorage.setItem('ec_value', PRICE.toString());
+
+      // If DOUBLE, skip Google Ads conversion pixel
+      if (data.message === 'DOUBLE') {
+        sessionStorage.setItem('skipConversion', 'true');
+      }
+
+      // Redirect to Czech TY page
+      window.location.href = '/ty-cz';
+    } catch (error) {
+      console.error('Network API error:', error);
+      // Still redirect on error, conversion will still fire
+      sessionStorage.setItem('orderData', JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        address: formData.fullAddress,
+        size: selectedSize,
+        price: PRICE,
+        currency: CURRENCY,
+        product: 'Ortopedický Topper'
+      }));
+      sessionStorage.setItem('ec_phone', formData.phone);
+      sessionStorage.setItem('ec_address', formData.fullAddress);
+      sessionStorage.setItem('ec_value', PRICE.toString());
+      window.location.href = '/ty-cz';
+    }
+  };
+
+  return (
+    <section id="order-form" className="py-12 px-4 bg-blue-50 border-t-4 border-blue-600">
+      <div className="max-w-xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-300">
+        <div className="bg-red-600 p-5 text-white text-center">
+            <h2 className="text-2xl md:text-3xl font-black uppercase">OBJEDNÁVKOVÝ FORMULÁŘ</h2>
+            <p className="text-sm md:text-base font-bold opacity-90 mt-1">Vyplňte pro zajištění ceny {PRICE} {CURRENCY}</p>
+        </div>
+        <div className="flex justify-between px-2 md:px-4 py-6 bg-gray-50 border-b border-gray-200 text-center">
+             <div className="flex-1 px-1">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto text-sm font-black mb-2 shadow-sm">1</div>
+                <span className="text-xs md:text-sm font-bold text-gray-800 uppercase block leading-tight">Vyplňte</span>
+             </div>
+             <div className="flex-1 px-1 border-l border-gray-200">
+                <div className="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center mx-auto text-sm font-black mb-2 shadow-sm">2</div>
+                <span className="text-xs md:text-sm font-bold text-gray-500 uppercase block leading-tight">Potvrďte</span>
+             </div>
+             <div className="flex-1 px-1 border-l border-gray-200">
+                <div className="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center mx-auto text-sm font-black mb-2 shadow-sm">3</div>
+                <span className="text-xs md:text-sm font-bold text-gray-500 uppercase block leading-tight">Plaťte při převzetí</span>
+             </div>
+        </div>
+        <form onSubmit={handleSubmit} className="p-5 md:p-8 space-y-6">
+            {/* Hidden fingerprint field for Network tracking */}
+            <input type="hidden" name="tmfp" ref={tmfpRef} />
+            <div className="bg-yellow-50 border-2 border-yellow-200 p-4 md:p-5 rounded-lg mb-4 shadow-sm">
+                <label className="block text-sm font-black text-gray-800 uppercase mb-3">Potvrďte velikost:</label>
+                <div className="flex flex-wrap gap-2">
+                    {(Object.keys(sizesMap) as BedSize[]).map((size) => (
+                        <button type="button" key={size} onClick={() => onSelectSize(size)} className={`text-sm font-bold py-3 px-3 rounded border transition-colors flex-grow md:flex-grow-0 text-center ${selectedSize === size ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-200 shadow-md' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}`}>
+                            {size} <span className="opacity-80 text-xs block font-normal mt-0.5">{sizesMap[size]}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="flex justify-between items-center mt-4 pt-4 border-t border-yellow-200">
+                    <span className="text-sm font-bold text-gray-600">Vybraná velikost: <strong className="text-gray-900 block md:inline">{selectedSize}</strong></span>
+                    <span className="text-green-700 font-black text-xl">{PRICE} {CURRENCY}</span>
+                </div>
+            </div>
+            <div>
+                <label className="block text-base font-bold text-gray-900 mb-2">Jméno a příjmení*</label>
+                <input required name="name" onChange={handleChange} type="text" placeholder="Např. Jan Novák" className="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50 font-medium text-lg shadow-sm placeholder-gray-400" />
+            </div>
+            <div>
+                <label className="block text-base font-bold text-gray-900 mb-2">Úplná adresa (Ulice, č., Město, PSČ)*</label>
+                <input required name="fullAddress" onChange={handleChange} type="text" placeholder="Např. Václavské náměstí 10, Praha, 110 00" className="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-gray-50 font-medium text-lg shadow-sm placeholder-gray-400" />
+            </div>
+            <div>
+                <label className="block text-base font-bold text-gray-900 mb-2 text-red-700">Telefonní číslo*</label>
+                <input required name="phone" onChange={handleChange} type="tel" placeholder="Např. 605 123 456" className="w-full p-4 border-2 border-yellow-400 bg-yellow-50 rounded-lg focus:border-blue-500 outline-none font-bold text-xl text-gray-900 shadow-sm placeholder-gray-400" />
+                <p className="text-xs text-gray-500 mt-2 font-medium">Kurýr zavolá na toto číslo ohledně doručení.</p>
+            </div>
+            <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-black text-xl md:text-3xl py-5 rounded-xl shadow-xl mt-6 border-b-8 border-green-800 transform transition active:scale-95 uppercase flex items-center justify-center group">
+                {isSubmitting ? 'ODESÍLÁNÍ...' : 'POTVRDIT OBJEDNÁVKU'} <Lock className="ml-3 w-6 h-6 md:w-8 md:h-8 opacity-90 group-hover:opacity-100"/>
+            </button>
+            <p className="text-center text-xs md:text-sm text-gray-500 font-semibold mt-4">Kliknutím potvrzujete nákup. Zaplatíte hotově kurýrovi.</p>
+            <div className="flex justify-center gap-2 md:gap-4 pt-6 border-t border-gray-100 flex-wrap">
+                <div className="flex items-center text-xs md:text-sm text-gray-600 font-bold"><ShieldCheck className="w-4 h-4 md:w-5 md:h-5 mr-1 text-blue-600"/> Bezpečná data</div>
+                <div className="flex items-center text-xs md:text-sm text-gray-600 font-bold"><Truck className="w-4 h-4 md:w-5 md:h-5 mr-1 text-green-600"/> Rychlé doručení</div>
+                <div className="flex items-center text-xs md:text-sm text-gray-600 font-bold"><Lock className="w-4 h-4 md:w-5 md:h-5 mr-1 text-gray-600"/> Bez karty</div>
+            </div>
+        </form>
+      </div>
+    </section>
+  );
+};
+
+const FAQ: React.FC = () => {
+  const faqs: FaqItem[] = [
+    { question: "Mám výhřez ploténky / ischias, může mi to pomoci?", answer: "Ano, byl navržen speciálně pro osoby s problémy páteře. Struktura z Memory Foam HD přijímá přirozené křivky zad, snižuje tlak na meziobratlové ploténky a zmírňuje zánět sedacího nervu." },
+    { question: "Proč stojí všechny velikosti stejně?", answer: "Žádný háček. Abychom rychle uvolnili sklad a udělali místo pro nové dodávky, rozhodli jsme se aplikovat základní cenu (Jednolůžko) na všechny velikosti, včetně Dvojlůžek a King Size. Je to výhoda pro zákazníka do vyprodání zásob." },
+    { question: "Není příliš měkký? Bojím se, že se propadnu.", answer: "Rozhodně ne. Používáme Memory s vysokou hustotou, který nabízí 'progresivní podporu'. Přijímá tělo, ale pevně podepírá váhu a udržuje páteř rovnou. Není to obyčejná měkká pěna." },
+    { question: "Pomáhá i na krk?", answer: "Samozřejmě. Správným vyrovnáním páteře od ramen po pánev umožňuje také krční části se uvolnit, což snižuje napětí v krku a ranní bolesti hlavy." },
+    { question: "Způsobuje pocení v létě?", answer: "Ne. 'Vlnitý' povrch neslouží pouze k masáži, ale vytváří vzduchové kanály, které oddělují tělo od materiálu. Vzduch volně cirkuluje a odvádí vlhkost a teplo." },
+    { question: "Hodí se na mou starou matraci?", answer: "Je to ideální řešení. Topper opravuje vady staré matrace (díry, píchnoucí pružiny, tvrdý povrch), obnovuje ortopedické místo na spaní bez nákupu nové matrace." },
+    { question: "Mohu platit při převzetí?", answer: "Ano, nabízíme bezplatnou platbu hotově při převzetí (dobírka), abychom zajistili maximální bezpečnost a klid při nákupu." },
+  ];
+
+  return (
+    <section className="py-16 px-4 bg-gray-50 max-w-4xl mx-auto">
+      <h3 className="text-3xl font-black text-center text-gray-900 mb-10 flex items-center justify-center uppercase"><HelpCircle className="mr-3 w-8 h-8 text-blue-600" /> Často kladené dotazy</h3>
+      <div className="space-y-4">
+        {faqs.map((faq, idx) => (
+            <details key={idx} className="group bg-white border-2 border-gray-200 rounded-xl open:ring-4 open:ring-blue-50 transition-all">
+                <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-bold text-gray-900 text-lg md:text-xl hover:bg-gray-50">
+                    <div className="flex items-center"><Activity className="w-6 h-6 text-blue-500 mr-3 flex-shrink-0" />{faq.question}</div>
+                    <span className="transition-transform duration-300 group-open:rotate-180"><ChevronDown className="w-6 h-6 text-gray-400 group-hover:text-gray-600"/></span>
+                </summary>
+                <div className="px-6 pb-6 text-gray-700 text-lg leading-relaxed border-t border-gray-100 pt-4 pl-14 font-medium">{faq.answer}</div>
+            </details>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function LandingPage() {
+  const [selectedSize, setSelectedSize] = useState<BedSize>('Dvojlůžko');
+
+  return (
+    <div className="min-h-screen bg-gray-100 font-sans scroll-smooth text-gray-900">
+      {/* Network Click Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="https://offers.uncappednetwork.com/forms/api/ck/?o=3044&uid=0191b25c-22d2-7f55-9d9b-79b67cebbff3&lp=3078" style={{width:'1px',height:'1px',display:'none'}} alt="" />
+      <Hero selectedSize={selectedSize} onSelectSize={setSelectedSize} />
+      <ProblemSolution />
+      <Mechanism />
+      <BenefitsList />
+      <Installation />
+      <Comparison />
+      <Unboxing />
+      <Reviews />
+      <OrderForm selectedSize={selectedSize} onSelectSize={setSelectedSize} />
+      <FAQ />
+    </div>
+  );
+}
