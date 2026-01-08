@@ -87,14 +87,14 @@ export const Solution: React.FC = () => {
                         3. ИГРАЙТЕ GTA, FIFA И FORTNITE
                     </h3>
                     <p className="text-gray-600 text-lg mb-4 leading-relaxed">
-                        Правилно прочетохте. Свържете <span className="text-purple-700 font-bold">Джойстика ПОДАРЪК</span> (в комплекта) и превърнете TV в конзола. Децата или внуците могат да играят хитове, без да давате 1000 лв за конзола.
+                        Правилно прочетохте. Свържете <span className="text-purple-700 font-bold">Джойстика ПОДАРЪК</span> (в комплекта) и превърнете TV в конзола. Децата или внуците могат да играят хитове, без да давате 500 € за конзола.
                     </p>
                     <ul className="space-y-2">
                         <li className="flex items-center gap-2 font-bold text-gray-800">
                             <CheckCircle2 className="text-green-500 shrink-0" /> Съвместим с Android игри и Cloud Gaming
                         </li>
                         <li className="flex items-center gap-2 font-bold text-gray-800">
-                            <CheckCircle2 className="text-green-500 shrink-0" /> Спестявате стотици левове
+                            <CheckCircle2 className="text-green-500 shrink-0" /> Спестявате стотици евро
                         </li>
                     </ul>
                 </div>

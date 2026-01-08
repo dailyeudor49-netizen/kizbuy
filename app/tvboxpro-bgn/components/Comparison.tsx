@@ -6,7 +6,7 @@ const comparisonData = [
     {
         feature: "Обща цена",
         us: { text: `Само ${PRICE_PROMO} ${CURRENCY}`, sub: "Еднократно плащане", highlight: true },
-        them: { text: "Над 1000 лв", sub: "Цена на нов TV", highlight: false }
+        them: { text: "Над 500 €", sub: "Цена на нов TV", highlight: false }
     },
     {
         feature: "Работи ли на стари TV?",

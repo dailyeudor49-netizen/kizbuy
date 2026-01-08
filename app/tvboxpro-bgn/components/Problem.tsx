@@ -27,7 +27,7 @@ export const Problem: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold mb-2">Скучни канали?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Обикновената телевизия е минало. За да гледате най-новите филми и сериали, трябва да плащате <span className="font-bold text-gray-800">стотици левове</span> месечно за абонаменти.
+              Обикновената телевизия е минало. За да гледате най-новите филми и сериали, трябва да плащате <span className="font-bold text-gray-800">стотици евро</span> месечно за абонаменти.
             </p>
           </div>
 
@@ -37,7 +37,7 @@ export const Problem: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold mb-2">Скъпи конзоли?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Децата искат да играят <span className="font-bold text-gray-800">Fortnite или FIFA</span>, но да дадете 1000+ лв за конзола е лудост?
+              Децата искат да играят <span className="font-bold text-gray-800">Fortnite или FIFA</span>, но да дадете 500+ € за конзола е лудост?
             </p>
           </div>
         </div>

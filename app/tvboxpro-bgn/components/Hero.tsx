@@ -109,6 +109,9 @@ export const Hero: React.FC = () => {
             <div className="mb-6 w-full bg-yellow-100 border-l-4 border-yellow-500 p-3 rounded-r">
               <span className="text-gray-500 text-xl line-through font-bold mr-2">{PRICE_FULL} {CURRENCY}</span>
               <span className="text-4xl font-black text-red-600">{PRICE_PROMO} {CURRENCY}</span>
+              <p className="text-xs text-gray-600 mt-2 italic">
+                (преди 115 лв - цена в евро след присъединяването на България към еврозоната)
+              </p>
             </div>
             
             {/* Concrete Bullet Points */}
