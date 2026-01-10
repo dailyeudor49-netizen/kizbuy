@@ -59,36 +59,36 @@ export default function ThankYouPage() {
       <div className="ty-box" style={{ background: 'white', borderRadius: '24px', padding: '3rem', maxWidth: '550px', width: '100%', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
         <style>{`@media (max-width: 640px) { .ty-box { padding: 1rem !important; margin: 0 !important; border-radius: 16px !important; } .ty-container { padding: 0.75rem !important; } }`}</style>
         <div style={{ width: '80px', height: '80px', background: 'linear-gradient(135deg, #16a34a 0%, #22c55e 100%)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2.5rem', color: 'white' }}>✓</div>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#111827', marginBottom: '0.5rem' }}>Ďakujeme za objednávku!</h1>
-        <p style={{ color: '#6b7280', fontSize: '1rem', marginBottom: '1.5rem' }}>Vaša objednávka bola úspešne prijatá.</p>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#111827', marginBottom: '0.5rem' }}>Hvala za naročilo!</h1>
+        <p style={{ color: '#6b7280', fontSize: '1rem', marginBottom: '1.5rem' }}>Vaše naročilo je bilo uspešno sprejeto.</p>
         <div style={{ background: 'linear-gradient(135deg, #FFF4E6, #FFE8CC)', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.5rem', border: '1px solid #FFDAA3' }}>
-          <div style={{ fontSize: '0.875rem', color: '#92400e', marginBottom: '0.25rem' }}>Číslo objednávky</div>
+          <div style={{ fontSize: '0.875rem', color: '#92400e', marginBottom: '0.25rem' }}>Številka naročila</div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#FF8C00', letterSpacing: '2px' }}>{orderCode}</div>
         </div>
         <div style={{ background: '#F8FAFC', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.5rem', textAlign: 'left' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#16a34a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>€</div>
-            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Platba na dobierku</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Zaplatíte kuriérovi v hotovosti</div></div>
+            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Plačilo ob dostavi</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Plačate kurirju v gotovini</div></div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#3B82F6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>📦</div>
-            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Doručenie zadarmo</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Doručenie za 2-3 pracovné dni</div></div>
+            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Brezplačna dostava</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Dostava v 2-3 delovnih dneh</div></div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#8B5CF6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>↺</div>
-            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>30 dní na vrátenie</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Vrátenie peňazí, ak nie ste spokojní</div></div>
+            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>30 dni za vračilo</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Vračilo denarja, če niste zadovoljni</div></div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#F59E0B', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>★</div>
-            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>2 roky záruka</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Na všetky produkty</div></div>
+            <div><div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>2 leti garancije</div><div style={{ color: '#64748b', fontSize: '0.85rem' }}>Na vse izdelke</div></div>
           </div>
         </div>
         <div style={{ background: '#F1F5F9', borderRadius: '12px', padding: '1rem', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem' }}>Potrebujete pomoc alebo chcete vrátiť produkt?</div>
+          <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem' }}>Potrebujete pomoč ali želite vrniti izdelek?</div>
           <a href="mailto:info@kizbuy.com" style={{ color: '#FF8C00', fontWeight: 600, textDecoration: 'none', fontSize: '0.95rem' }}>info@kizbuy.com</a>
-          <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>Môžete požiadať o vrátenie do 30 dní, ak nie ste spokojní s produktom</div>
+          <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>Vračilo lahko zahtevate v 30 dneh, če niste zadovoljni z izdelkom</div>
         </div>
-        <a href="/" style={{ display: 'inline-block', background: 'linear-gradient(135deg, #FFB800 0%, #FF7A00 100%)', color: 'white', padding: '1rem 2rem', borderRadius: '12px', fontSize: '1rem', fontWeight: 600, textDecoration: 'none' }}>Späť na hlavnú stránku</a>
+        <a href="/" style={{ display: 'inline-block', background: 'linear-gradient(135deg, #FFB800 0%, #FF7A00 100%)', color: 'white', padding: '1rem 2rem', borderRadius: '12px', fontSize: '1rem', fontWeight: 600, textDecoration: 'none' }}>Nazaj na glavno stran</a>
       </div>
     </div>
   );

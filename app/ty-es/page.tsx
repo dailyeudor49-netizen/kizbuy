@@ -72,10 +72,10 @@ export default function ThankYouPage() {
           } as unknown as string;
         }
 
-        // Purchase BGN conversion
+        // Purchase ES conversion
         window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/FfykCNvZ1M8bEKmegKdA',
+          'send_to': 'AW-17261661993/7ZPkCNLJ1s8bEKmegKdA',
           'value': ecValue,
           'currency': 'EUR',
           'transaction_id': transactionId,
@@ -139,7 +139,7 @@ export default function ThankYouPage() {
           color: '#111827',
           marginBottom: '0.5rem'
         }}>
-          Благодарим за поръчката!
+          ¡Gracias por tu pedido!
         </h1>
 
         <p style={{
@@ -147,7 +147,7 @@ export default function ThankYouPage() {
           fontSize: '1rem',
           marginBottom: '1.5rem'
         }}>
-          Вашата поръчка беше успешно приета.
+          Tu pedido ha sido procesado correctamente.
         </p>
 
         <div style={{
@@ -157,7 +157,7 @@ export default function ThankYouPage() {
           marginBottom: '1.5rem',
           border: '1px solid #FFDAA3'
         }}>
-          <div style={{ fontSize: '0.875rem', color: '#92400e', marginBottom: '0.25rem' }}>Номер на поръчката</div>
+          <div style={{ fontSize: '0.875rem', color: '#92400e', marginBottom: '0.25rem' }}>Número de pedido</div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#FF8C00', letterSpacing: '2px' }}>{orderCode}</div>
         </div>
 
@@ -171,29 +171,29 @@ export default function ThankYouPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#16a34a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>€</div>
             <div>
-              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Плащане при доставка</div>
-              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Ще платите в брой на куриера</div>
+              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Pago contra reembolso</div>
+              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Pagarás al mensajero en efectivo</div>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#3B82F6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>📦</div>
             <div>
-              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Безплатна доставка</div>
-              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Доставка за 2-3 работни дни</div>
+              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>Envío gratuito</div>
+              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Entrega en 2-3 días laborables</div>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#8B5CF6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>↺</div>
             <div>
-              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>30 дни за връщане</div>
-              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Връщане на парите, ако не сте доволни</div>
+              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>30 días para devolución</div>
+              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Te devolvemos el dinero si no estás satisfecho</div>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{ width: '32px', height: '32px', background: '#F59E0B', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1rem' }}>★</div>
             <div>
-              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>2 години гаранция</div>
-              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>На всички продукти</div>
+              <div style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>2 años de garantía</div>
+              <div style={{ color: '#64748b', fontSize: '0.85rem' }}>En todos los productos</div>
             </div>
           </div>
         </div>
@@ -204,9 +204,9 @@ export default function ThankYouPage() {
           padding: '1rem',
           marginBottom: '2rem'
         }}>
-          <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem' }}>Нуждаете се от помощ или искате да върнете продукта?</div>
+          <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem' }}>¿Necesitas ayuda o quieres devolver el producto?</div>
           <a href="mailto:info@kizbuy.com" style={{ color: '#FF8C00', fontWeight: 600, textDecoration: 'none', fontSize: '0.95rem' }}>info@kizbuy.com</a>
-          <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>Можете да поискате връщане в рамките на 30 дни, ако не сте доволни от продукта</div>
+          <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>Puedes solicitar la devolución en un plazo de 30 días si no estás satisfecho con el producto</div>
         </div>
 
         <a href="/" style={{
@@ -219,7 +219,7 @@ export default function ThankYouPage() {
           fontWeight: 600,
           textDecoration: 'none'
         }}>
-          Обратно към началната страница
+          Volver a la página principal
         </a>
       </div>
     </div>

@@ -1,0 +1,29 @@
+import React from 'react';
+import { Hero } from './components/Hero';
+import { Problem } from './components/Problem';
+import { HowItWorks } from './components/HowItWorks';
+import { Solution } from './components/Solution';
+import { Comparison } from './components/Comparison';
+import { Bundle } from './components/Bundle';
+import { Reviews } from './components/Reviews';
+import { FAQ } from './components/FAQ';
+import { OrderForm } from './components/OrderForm';
+
+export default function Page() {
+  return (
+    <>
+      {/* Network Click Pixel - TODO: Update with Slovenia offer IDs when available */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="https://offers.uncappednetwork.com/forms/api/ck/?o=XXXX&uid=0191b25c-22d2-7f55-9d9b-79b67cebbff3&lp=XXXX" style={{width:'1px',height:'1px',display:'none'}} alt="" />
+      <Hero />
+      <Problem />
+      <HowItWorks />
+      <Solution />
+      <Comparison />
+      <Bundle />
+      <Reviews />
+      <FAQ />
+      <OrderForm />
+    </>
+  );
+}
