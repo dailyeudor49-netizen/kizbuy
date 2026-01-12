@@ -47,7 +47,7 @@ export default function ThankYouPage() {
         if (ecPhone) userData.phone_number = await sha256(ecPhone.replace(/[\s\-\(\)]/g, ''));
         if (ecAddress) userData.address = { street: await sha256(ecAddress) } as unknown as string;
         window.gtag('config', 'AW-17261661993');
-        window.gtag('event', 'conversion', { 'send_to': 'AW-17261661993/FfykCNvZ1M8bEKmegKdA', 'value': ecValue, 'currency': 'EUR', 'transaction_id': transactionId, 'user_data': userData });
+        window.gtag('event', 'conversion', { 'send_to': 'AW-17261661993/VPSxCNe01M8bEKmegKdA', 'value': ecValue, 'currency': 'EUR', 'transaction_id': transactionId, 'user_data': userData });
         sessionStorage.setItem('conversionTracked', 'true');
         sessionStorage.removeItem('ec_name'); sessionStorage.removeItem('ec_phone'); sessionStorage.removeItem('ec_address'); sessionStorage.removeItem('ec_value');
       };
