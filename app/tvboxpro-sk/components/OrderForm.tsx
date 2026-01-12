@@ -4,12 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Timer, ShieldCheck, Lock, Truck, Check } from 'lucide-react';
 import { PRICE_PROMO, SHIPPING_COST, PRODUCT_NAME, CURRENCY } from '../constants';
 
-// Network config for SK - TODO: Update with actual Slovakia offer IDs
+// Network config for SK (Slovakia)
 const NETWORK_CONFIG = {
   uid: '0191b25c-22d2-7f55-9d9b-79b67cebbff3',
   key: 'e0fe8e75c501eccab21f8d',
-  offer: 'XXXX', // TODO: Update with Slovakia offer ID
-  lp: 'XXXX', // TODO: Update with Slovakia LP ID
+  offer: '2811',
+  lp: '2844',
 };
 
 export const OrderForm: React.FC = () => {
