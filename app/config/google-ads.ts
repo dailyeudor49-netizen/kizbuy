@@ -15,6 +15,12 @@ export const GOOGLE_ADS_BY_COUNTRY: Record<string, GoogleAdsCountryConfig> = {
 
   // Italy - LithiumPro (TODO: Add your Google Ads Conversion ID and Label)
   // 'it': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
+
+  // Inspectra360 Landing Pages (TODO: Add your Google Ads Conversion IDs and Labels)
+  // 'pl': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'PLN' },
+  // 'sk': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
+  // 'cz': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'CZK' },
+  // 'lt': { conversionId: 'AW-XXXXXXXXX', conversionLabel: 'XXXXXXXXXXXXXX', currency: 'EUR' },
 };
 
 /**
