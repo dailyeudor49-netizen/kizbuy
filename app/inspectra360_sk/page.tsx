@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Shield,
   Truck,
@@ -623,9 +623,20 @@ const PreOrderSummary = () => (
   </section>
 );
 
+// Network config for SK
+const NETWORK_CONFIG = {
+  uid: '019bfb2f-317f-7e20-a4a8-44c22cb7bd03',
+  key: '05fddd0847c3627b81e1d6',
+  offer: '2893',
+  lp: '2932',
+};
+
 // 12. ORDER FORM
 const OrderForm = () => {
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes
+  const [formState, setFormState] = useState({ name: '', phone: '', address: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const tmfpRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -640,6 +651,64 @@ const OrderForm = () => {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formState.name && formState.phone && formState.address) {
+      setIsSubmitting(true);
+
+      const urlParams = new URLSearchParams(window.location.search);
+
+      const formData = new FormData();
+      formData.append('uid', NETWORK_CONFIG.uid);
+      formData.append('key', NETWORK_CONFIG.key);
+      formData.append('offer', NETWORK_CONFIG.offer);
+      formData.append('lp', NETWORK_CONFIG.lp);
+      formData.append('name', formState.name);
+      formData.append('tel', formState.phone);
+      formData.append('street-address', formState.address);
+
+      const tmfpValue = tmfpRef.current?.value || '';
+      if (tmfpValue) {
+        formData.append('tmfp', tmfpValue);
+      }
+
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+        const value = urlParams.get(param);
+        if (value) formData.append(param, value);
+      });
+
+      try {
+        const response = await fetch('https://offers.italiadrop.com/forms/api/', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log('Network API response:', data);
+
+        sessionStorage.setItem('ec_phone', formState.phone);
+        sessionStorage.setItem('ec_address', formState.address);
+        sessionStorage.setItem('ec_value', '59.99');
+
+        if (data.message === 'DOUBLE') {
+          sessionStorage.setItem('skipConversion', 'true');
+        }
+
+        window.location.href = '/ty-sk';
+      } catch (error) {
+        console.error('Network API error:', error);
+        sessionStorage.setItem('ec_phone', formState.phone);
+        sessionStorage.setItem('ec_address', formState.address);
+        sessionStorage.setItem('ec_value', '59.99');
+        window.location.href = '/ty-sk';
+      }
+    }
+  };
+
   return (
     <section id="ordine" className="py-16 bg-slate-900 relative">
       <div className="max-w-2xl mx-auto px-4 relative z-10">
@@ -652,30 +721,32 @@ const OrderForm = () => {
             <h2 className="text-3xl font-black text-center text-slate-900 mb-2">Objednajte teraz — Platíte pri prevzatí</h2>
             <p className="text-center text-slate-600 mb-8 font-medium">Vyplňte formulár za 20 sekúnd.</p>
 
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              <input type="hidden" name="tmfp" ref={tmfpRef} />
+
               <div>
                 <label className="text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
                   <User size={18} className="text-[#0f766e]"/> Meno a Priezvisko
                 </label>
-                <input type="text" className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition bg-slate-50 font-medium" placeholder="Napr. Ján Novák" required />
+                <input type="text" name="name" value={formState.name} onChange={handleChange} className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition bg-slate-50 font-medium" placeholder="Napr. Ján Novák" required />
               </div>
 
               <div>
                 <label className="text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
                   <Phone size={18} className="text-[#0f766e]"/> Telefónne číslo (mobil)
                 </label>
-                <input type="tel" className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition bg-slate-50 font-medium" placeholder="Napr. 0900 123 456" required />
+                <input type="tel" name="phone" value={formState.phone} onChange={handleChange} className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition bg-slate-50 font-medium" placeholder="Napr. 0900 123 456" required />
               </div>
 
               <div>
                 <label className="text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
                   <MapPin size={18} className="text-[#0f766e]"/> Adresa doručenia
                 </label>
-                <textarea className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition h-24 bg-slate-50 font-medium" placeholder="Ulica, Číslo domu, Mesto, PSČ" required></textarea>
+                <textarea name="address" value={formState.address} onChange={handleChange} className="w-full p-4 border-2 border-slate-300 rounded-lg focus:border-[#0f766e] focus:ring-1 focus:ring-[#0f766e] outline-none transition h-24 bg-slate-50 font-medium" placeholder="Ulica, Číslo domu, Mesto, PSČ" required></textarea>
               </div>
 
-              <button type="submit" className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white font-black text-2xl py-5 rounded-xl shadow-[0_4px_14px_0_rgba(22,163,74,0.39)] hover:shadow-2xl transition transform hover:-translate-y-1 mt-6 border-b-4 border-[#15803d]">
-                POTVRDIŤ OBJEDNÁVKU
+              <button type="submit" disabled={isSubmitting} className={`w-full font-black text-2xl py-5 rounded-xl shadow-[0_4px_14px_0_rgba(22,163,74,0.39)] hover:shadow-2xl transition transform hover:-translate-y-1 mt-6 border-b-4 ${isSubmitting ? 'bg-gray-400 border-gray-500 text-gray-200 cursor-not-allowed' : 'bg-[#16a34a] hover:bg-[#15803d] text-white border-[#15803d]'}`}>
+                {isSubmitting ? 'ODOSIELAM...' : 'POTVRDIŤ OBJEDNÁVKU'}
               </button>
 
               <div className="flex justify-center gap-4 mt-4 text-xs text-slate-500 font-medium opacity-80">
@@ -718,6 +789,9 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-[#0f766e] selection:text-white">
+      {/* Network Click Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="https://offers.italiadrop.com/forms/api/ck/?o=2893&uid=019bfb2f-317f-7e20-a4a8-44c22cb7bd03&lp=2932" style={{width:'1px',height:'1px',display:'none'}} alt="" />
       <TopBar />
       <Hero scrollToOrder={scrollToOrder} />
       <DemoGrid />

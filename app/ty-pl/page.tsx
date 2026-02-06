@@ -9,14 +9,6 @@ declare global {
   }
 }
 
-// SHA-256 hash function for Enhanced Conversions
-async function sha256(message: string): Promise<string> {
-  const msgBuffer = new TextEncoder().encode(message.toLowerCase().trim());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
 export default function ThankYouPage() {
   const [orderCode, setOrderCode] = useState('');
 
@@ -36,7 +28,7 @@ export default function ThankYouPage() {
 
     // Skip conversion if it's a DOUBLE from network
     if (skipConversion === 'true') {
-      console.log('⚠️ Skipping Google Ads conversion - DOUBLE lead from network');
+      console.log('Skipping Google Ads conversion - DOUBLE lead from network');
       sessionStorage.removeItem('skipConversion');
       return;
     }
@@ -55,31 +47,30 @@ export default function ThankYouPage() {
       script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
       document.head.appendChild(script);
 
-      script.onload = async () => {
+      script.onload = () => {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function() { window.dataLayer!.push(arguments); };
         window.gtag('js', new Date());
+        window.gtag('config', 'AW-17261661993');
 
-        // Prepare Enhanced Conversions user_data with hashed values
-        const userData: Record<string, string> = {};
+        // Enhanced Conversions: send plain text user_data (Google hashes automatically)
+        const userData: Record<string, unknown> = {};
         if (ecPhone) {
-          const normalizedPhone = ecPhone.replace(/[\s\-\(\)]/g, '');
-          userData.phone_number = await sha256(normalizedPhone);
+          userData.phone_number = ecPhone.replace(/[\s\-\(\)]/g, '');
         }
         if (ecAddress) {
-          userData.address = {
-            street: await sha256(ecAddress)
-          } as unknown as string;
+          userData.address = { street: ecAddress, country: 'PL' };
+        }
+        if (Object.keys(userData).length > 0) {
+          window.gtag('set', 'user_data', userData);
         }
 
         // Purchase PL conversion
-        window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
           'send_to': 'AW-17261661993/VxxaCOTu4s8bEKmegKdA',
           'value': ecValue,
           'currency': 'PLN',
-          'transaction_id': transactionId,
-          'user_data': userData
+          'transaction_id': transactionId
         });
         sessionStorage.setItem('conversionTracked', 'true');
 
@@ -89,7 +80,7 @@ export default function ThankYouPage() {
         sessionStorage.removeItem('ec_address');
         sessionStorage.removeItem('ec_value');
 
-        console.log('✅ Google Ads conversion tracked with Enhanced Conversions, transaction_id:', transactionId);
+        console.log('Google Ads conversion tracked with Enhanced Conversions, transaction_id:', transactionId);
       };
     }
   }, []);

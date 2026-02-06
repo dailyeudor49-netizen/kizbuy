@@ -9,14 +9,6 @@ declare global {
   }
 }
 
-// SHA-256 hash function for Enhanced Conversions
-async function sha256(message: string): Promise<string> {
-  const msgBuffer = new TextEncoder().encode(message.toLowerCase().trim());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
 export default function ThankYouPage() {
   const [orderCode, setOrderCode] = useState('');
 
@@ -55,31 +47,25 @@ export default function ThankYouPage() {
       script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
       document.head.appendChild(script);
 
-      script.onload = async () => {
+      script.onload = () => {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function() { window.dataLayer!.push(arguments); };
         window.gtag('js', new Date());
 
-        // Prepare Enhanced Conversions user_data with hashed values
-        const userData: Record<string, string> = {};
-        if (ecPhone) {
-          const normalizedPhone = ecPhone.replace(/[\s\-\(\)]/g, '');
-          userData.phone_number = await sha256(normalizedPhone);
-        }
-        if (ecAddress) {
-          userData.address = {
-            street: await sha256(ecAddress)
-          } as unknown as string;
-        }
+        window.gtag('config', 'AW-17261661993');
+
+        // Enhanced Conversions - send plain text, Google hashes automatically
+        const userData: Record<string, unknown> = {};
+        if (ecPhone) userData.phone_number = ecPhone.replace(/[\s\-\(\)]/g, '');
+        if (ecAddress) userData.address = { street: ecAddress, country: 'HU' };
+        if (Object.keys(userData).length > 0) window.gtag('set', 'user_data', userData);
 
         // Purchase HU conversion - UPDATE CONVERSION LABEL WHEN PROVIDED
-        window.gtag('config', 'AW-17261661993');
         window.gtag('event', 'conversion', {
           'send_to': 'AW-17261661993/TITANSAW_HU_CONVERSION_LABEL',
           'value': ecValue,
           'currency': 'HUF',
-          'transaction_id': transactionId,
-          'user_data': userData
+          'transaction_id': transactionId
         });
         sessionStorage.setItem('conversionTracked', 'true');
 
