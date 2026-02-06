@@ -72,15 +72,15 @@ const TopBar = () => (
 // 2. HERO SECTION
 const Hero = ({ scrollToOrder }: { scrollToOrder: () => void }) => {
   const images = [
-    "/images/inspectra360-img/1.png",
-    "/images/inspectra360-img/2.png",
-    "/images/inspectra360-img/3.png",
-    "/images/inspectra360-img/4.png",
-    "/images/inspectra360-img/5.png",
-    "/images/inspectra360-img/6.png",
-    "/images/inspectra360-img/7.png",
-    "/images/inspectra360-img/8.png",
-    "/images/inspectra360-img/9.png"
+    "/images/inspectra360-img/1.webp",
+    "/images/inspectra360-img/2.webp",
+    "/images/inspectra360-img/3.webp",
+    "/images/inspectra360-img/4.webp",
+    "/images/inspectra360-img/5.webp",
+    "/images/inspectra360-img/6.webp",
+    "/images/inspectra360-img/7.webp",
+    "/images/inspectra360-img/8.webp",
+    "/images/inspectra360-img/9.webp"
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -214,56 +214,56 @@ const DemoGrid = () => {
       title: "360° galiukas su užraktu",
       tech: "4 krypčių vairasvirtė + Flex-Lock",
       text: <span>Nukreipiate į tašką ir <strong>galiukas lieka nejudantis</strong>: neprarandate vaizdo vingiuose. Idealus vamzdžiams, nuotekoms ir variklio sekcijai.</span>,
-      img: "/images/inspectra360-img/punta-360-con-blocco.gif"
+      video: "/images/inspectra360-img/punta-360-con-blocco.mp4"
     },
     {
       label: "MATYMAS",
       title: "Dvigubas objektyvas",
       tech: "1-tap perjungimas",
       text: <span>Žiūrite <strong>į priekį arba į šoną</strong> be sukimosi. Matote kliūtis ir objektus net ant vamzdžio sienų.</span>,
-      img: "/images/inspectra360-img/doppia-lente.gif"
+      video: "/images/inspectra360-img/doppia-lente.mp4"
     },
     {
       label: "ĮSKAITOMUMAS",
       title: "5\" IPS HD ekranas",
       tech: "Didelis aukštos raiškos ekranas",
       text: <span><strong>Nereikia programėlės</strong>: įjungiate ir matote. Didelis vaizdas, patogus net be 'kombinacijos'.</span>,
-      img: "/images/inspectra360-img/schermo-5-ips-hd.png"
+      img: "/images/inspectra360-img/schermo-5-ips-hd.webp"
     },
     {
       label: "GYLIS",
       title: "Pusiau standus 5 m kabelis",
       tech: "Stabilus vedimas",
       text: <span>Stumiete ir nukreipiate, kur reikia: <strong>nenukabina</strong>. Idealus nuotekoms, kanalams ir ertmėms.</span>,
-      img: "/images/inspectra360-img/cavo-semirigido-5-metri.png"
+      img: "/images/inspectra360-img/cavo-semirigido-5-metri.webp"
     },
     {
       label: "NULINĖ TAMSA",
       title: "8+1 LED su reguliavimu",
       tech: "Stipri kontroliuojama šviesa",
       text: <span>Matote aiškias detales net <strong>visiškoje tamsoje</strong>. Reguliuojate intensyvumą, kad 'neperdegintumėte' vaizdo.</span>,
-      img: "/images/inspectra360-img/led-8-1-regolabili.gif"
+      video: "/images/inspectra360-img/led-8-1-regolabili.mp4"
     },
     {
       label: "PRIEIGA",
       title: "Plona 6,2 mm zondas",
       tech: "Plonesnė = daugiau praėjimų",
       text: <span>Patenka į ankštas vietas, kur storos zondos sustoja. <strong>Ideali tiksliems darbams</strong>.</span>,
-      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.png"
+      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.webp"
     },
     {
       label: "DRĖGMĖ IR KARŠTIS",
       title: "Paruošta nuotekoms",
       tech: "IP67 + Atspari aukštai temp.",
       text: <span>Galite dirbti vandenyje ir purve be baimės. <strong>Atspari aukštai temperatūrai</strong>: nesudega net karštuose varikliuose.</span>,
-      img: "/images/inspectra360-img/pronta-per-scarichi.gif"
+      video: "/images/inspectra360-img/pronta-per-scarichi.mp4"
     },
     {
       label: "DETALĖS",
       title: "8x skaitmeninis priartinimas",
       tech: "HD padidinimas",
       text: <span>Padidinkite detales iki 8 kartų. <strong>Aptikite nematomas įtrūkimus</strong> ir perskaitykite paslėptus serijinius numerius su absoliučiu tikslumu.</span>,
-      img: "/images/inspectra360-img/zoom-8x-digitale.png"
+      img: "/images/inspectra360-img/zoom-8x-digitale.webp"
     },
   ];
 
@@ -273,9 +273,13 @@ const DemoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cards.map((card, idx) => (
             <div key={idx} className="bg-white p-4 rounded-xl shadow-md border border-slate-100 hover:border-[#0f766e] transition-all hover:shadow-lg flex flex-col h-full text-center">
-              {/* Image Placeholder */}
+              {/* Image/Video */}
               <div className="w-full aspect-square bg-slate-200 rounded-lg mb-4 overflow-hidden border border-slate-100">
-                <img src={card.img} alt={card.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                {card.video ? (
+                  <video src={card.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <img src={card.img} alt={card.title} loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                )}
               </div>
 
               <div className="text-[10px] font-bold tracking-widest text-slate-400 mb-1 uppercase">{card.label}</div>
@@ -451,8 +455,8 @@ const Bundle = ({ scrollToOrder }: { scrollToOrder: () => void }) => (
 // 8. REVIEWS
 const Reviews = () => {
   const reviews = [
-    { name: "Jonas K., Vilnius", text: <span key="r1">Naudojau ją varikliui: <strong>iš karto pamačiau, kur žiūrėti</strong>. Atkeliavo per 48h ir sumokėjau kurjeriui.</span>, img: "/images/inspectra360-img/recensioni/1.png" },
-    { name: "Tomas M., Kaunas", text: <span key="r2">Kriauklės nuotekas: radau užsikimšimą <strong>be pusės sifono išardymo</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.png" },
+    { name: "Jonas K., Vilnius", text: <span key="r1">Naudojau ją varikliui: <strong>iš karto pamačiau, kur žiūrėti</strong>. Atkeliavo per 48h ir sumokėjau kurjeriui.</span>, img: "/images/inspectra360-img/recensioni/1.webp" },
+    { name: "Tomas M., Kaunas", text: <span key="r2">Kriauklės nuotekas: radau užsikimšimą <strong>be pusės sifono išardymo</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.webp" },
     { name: "Ona D., Klaipėda", text: <span key="r3">Didelis ekranas, pagaliau gerai matau. <strong>Nesu techninė</strong> ir naudoju be problemų.</span> },
     { name: "Marius T., Šiauliai", text: <span key="r4"><strong>Galiuko užraktas daro skirtumą</strong>: neprarandate kadro, kai judate.</span> },
     { name: "Petras L., Panevėžys", text: <span key="r5">Radau raktą, kuris nukrito už baldų. <strong>Magnetas labai naudingas</strong>.</span> },
@@ -468,7 +472,7 @@ const Reviews = () => {
             <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-slate-100">
               {rev.img && (
                 <div className="mb-4 rounded-lg overflow-hidden border border-slate-100">
-                  <img src={rev.img} alt={`Atsiliepimas ${i + 1}`} className="w-full h-48 object-cover" />
+                  <img src={rev.img} alt={`Atsiliepimas ${i + 1}`} loading="lazy" className="w-full h-48 object-cover" />
                 </div>
               )}
               <div className="flex text-yellow-400 mb-3">
@@ -558,7 +562,7 @@ const PreOrderSummary = () => (
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
         <div className="flex flex-col md:flex-row items-center gap-4">
            <div className="w-20 h-20 rounded-lg overflow-hidden border border-slate-200 shrink-0">
-              <img src="/images/inspectra360-img/1.png" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
+              <img src="/images/inspectra360-img/1.webp" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
            </div>
            <div>
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wide">Užsakote:</div>

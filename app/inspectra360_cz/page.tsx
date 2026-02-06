@@ -72,15 +72,15 @@ const TopBar = () => (
 // 2. HERO SECTION
 const Hero = ({ scrollToOrder }: { scrollToOrder: () => void }) => {
   const images = [
-    "/images/inspectra360-img/1.png",
-    "/images/inspectra360-img/2.png",
-    "/images/inspectra360-img/3.png",
-    "/images/inspectra360-img/4.png",
-    "/images/inspectra360-img/5.png",
-    "/images/inspectra360-img/6.png",
-    "/images/inspectra360-img/7.png",
-    "/images/inspectra360-img/8.png",
-    "/images/inspectra360-img/9.png"
+    "/images/inspectra360-img/1.webp",
+    "/images/inspectra360-img/2.webp",
+    "/images/inspectra360-img/3.webp",
+    "/images/inspectra360-img/4.webp",
+    "/images/inspectra360-img/5.webp",
+    "/images/inspectra360-img/6.webp",
+    "/images/inspectra360-img/7.webp",
+    "/images/inspectra360-img/8.webp",
+    "/images/inspectra360-img/9.webp"
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -214,56 +214,56 @@ const DemoGrid = () => {
       title: "Špička 360° s aretací",
       tech: "Joystick 4-směrový + Flex-Lock",
       text: <span>Zaměříte na bod a <strong>špička zůstane nehybná</strong>: neztratíte výhled v zatáčkách. Ideální na trubky, odpady a motorové prostory.</span>,
-      img: "/images/inspectra360-img/punta-360-con-blocco.gif"
+      video: "/images/inspectra360-img/punta-360-con-blocco.mp4"
     },
     {
       label: "VIDĚNÍ",
       title: "Dvojitý objektiv",
       tech: "Přepínání 1-tap",
       text: <span>Díváte se <strong>dopředu nebo z boku</strong> bez kroucení. Vidíte překážky a objekty i na stěnách trubky.</span>,
-      img: "/images/inspectra360-img/doppia-lente.gif"
+      video: "/images/inspectra360-img/doppia-lente.mp4"
     },
     {
       label: "ČITELNOST",
       title: "Obrazovka 5\" IPS HD",
       tech: "Velký displej s vysokým rozlišením",
       text: <span><strong>Nepotřebujete aplikaci</strong>: zapnete a vidíte. Velký obraz, pohodlný i bez 'kombinování'.</span>,
-      img: "/images/inspectra360-img/schermo-5-ips-hd.png"
+      img: "/images/inspectra360-img/schermo-5-ips-hd.webp"
     },
     {
       label: "HLOUBKA",
       title: "Polotuhý kabel 5 metrů",
       tech: "Stabilní vedení",
       text: <span>Tlačíte ho a směrujete, kam potřebujete: <strong>nespadne</strong>. Ideální na odpady, kanály a dutiny.</span>,
-      img: "/images/inspectra360-img/cavo-semirigido-5-metri.png"
+      img: "/images/inspectra360-img/cavo-semirigido-5-metri.webp"
     },
     {
       label: "NULOVÁ TMA",
       title: "LED 8+1 s regulací",
       tech: "Silné kontrolované světlo",
       text: <span>Vidíte jasné detaily i v <strong>úplné tmě</strong>. Regulujete intenzitu, abyste 'nepřepálili' obraz.</span>,
-      img: "/images/inspectra360-img/led-8-1-regolabili.gif"
+      video: "/images/inspectra360-img/led-8-1-regolabili.mp4"
     },
     {
       label: "PŘÍSTUP",
       title: "Tenká sonda 6,2 mm",
       tech: "Tenčí = více průchodů",
       text: <span>Vejde do těsných prostorů, kde se tlusté sondy zastaví. <strong>Ideální na přesné práce</strong>.</span>,
-      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.png"
+      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.webp"
     },
     {
       label: "VLHKOST A TEPLO",
       title: "Připravená na odpady",
       tech: "IP67 + Odolná vysokým teplotám",
       text: <span>Můžete pracovat ve vodě a špíně bez obav. <strong>Odolná vysokým teplotám</strong>: nespálí se ani v horkých motorech.</span>,
-      img: "/images/inspectra360-img/pronta-per-scarichi.gif"
+      video: "/images/inspectra360-img/pronta-per-scarichi.mp4"
     },
     {
       label: "DETAILY",
       title: "Digitální zoom 8x",
       tech: "HD zvětšení",
       text: <span>Zvětšete detaily až 8-krát. <strong>Odhalte neviditelné praskliny</strong> a přečtěte skrytá sériová čísla s absolutní přesností.</span>,
-      img: "/images/inspectra360-img/zoom-8x-digitale.png"
+      img: "/images/inspectra360-img/zoom-8x-digitale.webp"
     },
   ];
 
@@ -273,9 +273,13 @@ const DemoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cards.map((card, idx) => (
             <div key={idx} className="bg-white p-4 rounded-xl shadow-md border border-slate-100 hover:border-[#0f766e] transition-all hover:shadow-lg flex flex-col h-full text-center">
-              {/* Image Placeholder */}
+              {/* Image/Video */}
               <div className="w-full aspect-square bg-slate-200 rounded-lg mb-4 overflow-hidden border border-slate-100">
-                <img src={card.img} alt={card.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                {card.video ? (
+                  <video src={card.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <img src={card.img} alt={card.title} loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                )}
               </div>
 
               <div className="text-[10px] font-bold tracking-widest text-slate-400 mb-1 uppercase">{card.label}</div>
@@ -451,8 +455,8 @@ const Bundle = ({ scrollToOrder }: { scrollToOrder: () => void }) => (
 // 8. REVIEWS
 const Reviews = () => {
   const reviews = [
-    { name: "Jan K., Praha", text: <span key="r1">Použil jsem ji na motoru: <strong>hned jsem viděl, kam se dívat</strong>. Přišla za 48h a zaplatil jsem kurýrovi.</span>, img: "/images/inspectra360-img/recensioni/1.png" },
-    { name: "Tomáš M., Brno", text: <span key="r2">Odpad v umyvadle: našel jsem ucpání <strong>bez demontáže poloviny sifonu</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.png" },
+    { name: "Jan K., Praha", text: <span key="r1">Použil jsem ji na motoru: <strong>hned jsem viděl, kam se dívat</strong>. Přišla za 48h a zaplatil jsem kurýrovi.</span>, img: "/images/inspectra360-img/recensioni/1.webp" },
+    { name: "Tomáš M., Brno", text: <span key="r2">Odpad v umyvadle: našel jsem ucpání <strong>bez demontáže poloviny sifonu</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.webp" },
     { name: "Anna D., Ostrava", text: <span key="r3">Velká obrazovka, konečně dobře vidím. <strong>Nejsem technická</strong> a používám ji bez problémů.</span> },
     { name: "Marek T., Plzeň", text: <span key="r4"><strong>Aretace špičky dělá rozdíl</strong>: neztratíte záběr, když se hýbete.</span> },
     { name: "Petr L., Liberec", text: <span key="r5">Našel jsem klíč, co spadl za nábytek. <strong>Magnet velmi užitečný</strong>.</span> },
@@ -468,7 +472,7 @@ const Reviews = () => {
             <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-slate-100">
               {rev.img && (
                 <div className="mb-4 rounded-lg overflow-hidden border border-slate-100">
-                  <img src={rev.img} alt={`Recenze ${i + 1}`} className="w-full h-48 object-cover" />
+                  <img src={rev.img} alt={`Recenze ${i + 1}`} loading="lazy" className="w-full h-48 object-cover" />
                 </div>
               )}
               <div className="flex text-yellow-400 mb-3">
@@ -558,7 +562,7 @@ const PreOrderSummary = () => (
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
         <div className="flex flex-col md:flex-row items-center gap-4">
            <div className="w-20 h-20 rounded-lg overflow-hidden border border-slate-200 shrink-0">
-              <img src="/images/inspectra360-img/1.png" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
+              <img src="/images/inspectra360-img/1.webp" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
            </div>
            <div>
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wide">Objednáváte:</div>

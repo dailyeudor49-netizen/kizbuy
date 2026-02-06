@@ -72,15 +72,15 @@ const TopBar = () => (
 // 2. HERO SECTION
 const Hero = ({ scrollToOrder }: { scrollToOrder: () => void }) => {
   const images = [
-    "/images/inspectra360-img/1.png",
-    "/images/inspectra360-img/2.png",
-    "/images/inspectra360-img/3.png",
-    "/images/inspectra360-img/4.png",
-    "/images/inspectra360-img/5.png",
-    "/images/inspectra360-img/6.png",
-    "/images/inspectra360-img/7.png",
-    "/images/inspectra360-img/8.png",
-    "/images/inspectra360-img/9.png"
+    "/images/inspectra360-img/1.webp",
+    "/images/inspectra360-img/2.webp",
+    "/images/inspectra360-img/3.webp",
+    "/images/inspectra360-img/4.webp",
+    "/images/inspectra360-img/5.webp",
+    "/images/inspectra360-img/6.webp",
+    "/images/inspectra360-img/7.webp",
+    "/images/inspectra360-img/8.webp",
+    "/images/inspectra360-img/9.webp"
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -214,56 +214,56 @@ const DemoGrid = () => {
       title: "Końcówka 360° z blokadą",
       tech: "Joystick 4-kierunkowy + Flex-Lock",
       text: <span>Celujesz w punkt i <strong>końcówka zostaje nieruchoma</strong>: nie tracisz widoku na zakrętach. Idealna do rur, odpływów i komór silnika.</span>,
-      img: "/images/inspectra360-img/punta-360-con-blocco.gif"
+      video: "/images/inspectra360-img/punta-360-con-blocco.mp4"
     },
     {
       label: "WIZJA",
       title: "Podwójny obiektyw",
       tech: "Przełączanie 1-tap",
       text: <span>Patrzysz <strong>do przodu lub z boku</strong> bez wykręcania. Widzisz przeszkody i obiekty także na ścianach rury.</span>,
-      img: "/images/inspectra360-img/doppia-lente.gif"
+      video: "/images/inspectra360-img/doppia-lente.mp4"
     },
     {
       label: "CZYTELNOŚĆ",
       title: "Ekran 5\" IPS HD",
       tech: "Duży wyświetlacz wysokiej rozdzielczości",
       text: <span><strong>Nie potrzebujesz aplikacji</strong>: włączasz i widzisz. Duży obraz, wygodny nawet bez 'kombinowania'.</span>,
-      img: "/images/inspectra360-img/schermo-5-ips-hd.png"
+      img: "/images/inspectra360-img/schermo-5-ips-hd.webp"
     },
     {
       label: "GŁĘBOKOŚĆ",
       title: "Półsztywny kabel 5 metrów",
       tech: "Stabilne prowadzenie",
       text: <span>Pchasz go i kierujesz, gdzie potrzebujesz: <strong>nie "zwisa"</strong>. Idealny do odpływów, kanałów i wnęk.</span>,
-      img: "/images/inspectra360-img/cavo-semirigido-5-metri.png"
+      img: "/images/inspectra360-img/cavo-semirigido-5-metri.webp"
     },
     {
       label: "ZERO CIEMNOŚCI",
       title: "LED 8+1 z regulacją",
       tech: "Mocne kontrolowane światło",
       text: <span>Widzisz wyraźne szczegóły nawet w <strong>całkowitej ciemności</strong>. Regulujesz intensywność, aby nie 'przepalić' obrazu.</span>,
-      img: "/images/inspectra360-img/led-8-1-regolabili.gif"
+      video: "/images/inspectra360-img/led-8-1-regolabili.mp4"
     },
     {
       label: "DOSTĘP",
       title: "Cienka sonda 6,2 mm",
       tech: "Cieńsza = więcej przejść",
       text: <span>Wchodzi w ciasne przestrzenie, gdzie grube sondy się zatrzymują. <strong>Idealna do precyzyjnych prac</strong>.</span>,
-      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.png"
+      img: "/images/inspectra360-img/sonda-sottile-6-2-mm.webp"
     },
     {
       label: "WILGOĆ I CIEPŁO",
       title: "Gotowa do odpływów",
       tech: "IP67 + Odporna na wysokie temp.",
       text: <span>Możesz pracować w wodzie i brudzie bez obaw. <strong>Odporna na wysokie temperatury</strong>: nie spali się nawet w gorących silnikach.</span>,
-      img: "/images/inspectra360-img/pronta-per-scarichi.gif"
+      video: "/images/inspectra360-img/pronta-per-scarichi.mp4"
     },
     {
       label: "SZCZEGÓŁY",
       title: "Zoom cyfrowy 8x",
       tech: "Powiększenie HD",
       text: <span>Powiększ szczegóły do 8 razy. <strong>Wykryj niewidoczne pęknięcia</strong> i odczytaj ukryte numery seryjne z absolutną precyzją.</span>,
-      img: "/images/inspectra360-img/zoom-8x-digitale.png"
+      img: "/images/inspectra360-img/zoom-8x-digitale.webp"
     },
   ];
 
@@ -273,9 +273,13 @@ const DemoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cards.map((card, idx) => (
             <div key={idx} className="bg-white p-4 rounded-xl shadow-md border border-slate-100 hover:border-[#0f766e] transition-all hover:shadow-lg flex flex-col h-full text-center">
-              {/* Image Placeholder */}
+              {/* Image/Video */}
               <div className="w-full aspect-square bg-slate-200 rounded-lg mb-4 overflow-hidden border border-slate-100">
-                <img src={card.img} alt={card.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                {card.video ? (
+                  <video src={card.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                ) : (
+                  <img src={card.img} alt={card.title} loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                )}
               </div>
 
               <div className="text-[10px] font-bold tracking-widest text-slate-400 mb-1 uppercase">{card.label}</div>
@@ -451,8 +455,8 @@ const Bundle = ({ scrollToOrder }: { scrollToOrder: () => void }) => (
 // 8. REVIEWS
 const Reviews = () => {
   const reviews = [
-    { name: "Jan K., Warszawa", text: <span key="r1">Użyłem jej na silniku: <strong>od razu zobaczyłem, gdzie patrzeć</strong>. Dotarła w 48h i zapłaciłem kurierowi.</span>, img: "/images/inspectra360-img/recensioni/1.png" },
-    { name: "Tomasz M., Kraków", text: <span key="r2">Odpływ w zlewie: znalazłem zator <strong>bez demontażu połowy syfonu</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.png" },
+    { name: "Jan K., Warszawa", text: <span key="r1">Użyłem jej na silniku: <strong>od razu zobaczyłem, gdzie patrzeć</strong>. Dotarła w 48h i zapłaciłem kurierowi.</span>, img: "/images/inspectra360-img/recensioni/1.webp" },
+    { name: "Tomasz M., Kraków", text: <span key="r2">Odpływ w zlewie: znalazłem zator <strong>bez demontażu połowy syfonu</strong>.</span>, img: "/images/inspectra360-img/recensioni/2.webp" },
     { name: "Anna D., Gdańsk", text: <span key="r3">Duży ekran, w końcu dobrze widzę. <strong>Nie jestem techniczna</strong> i używam jej bez problemu.</span> },
     { name: "Marek T., Poznań", text: <span key="r4"><strong>Blokada końcówki robi różnicę</strong>: nie tracisz kadru, gdy się ruszasz.</span> },
     { name: "Piotr L., Wrocław", text: <span key="r5">Odzyskałem klucz, który wpadł za meble. <strong>Magnes bardzo przydatny</strong>.</span> },
@@ -468,7 +472,7 @@ const Reviews = () => {
             <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-slate-100">
               {rev.img && (
                 <div className="mb-4 rounded-lg overflow-hidden border border-slate-100">
-                  <img src={rev.img} alt={`Recenzja ${i + 1}`} className="w-full h-48 object-cover" />
+                  <img src={rev.img} alt={`Recenzja ${i + 1}`} loading="lazy" className="w-full h-48 object-cover" />
                 </div>
               )}
               <div className="flex text-yellow-400 mb-3">
@@ -558,7 +562,7 @@ const PreOrderSummary = () => (
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
         <div className="flex flex-col md:flex-row items-center gap-4">
            <div className="w-20 h-20 rounded-lg overflow-hidden border border-slate-200 shrink-0">
-              <img src="/images/inspectra360-img/1.png" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
+              <img src="/images/inspectra360-img/1.webp" alt="Inspectra 360 Ultra" className="w-full h-full object-cover" />
            </div>
            <div>
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wide">Zamawiasz:</div>
