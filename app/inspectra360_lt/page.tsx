@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { validateForm } from '@/app/utils/formValidation';
 import {
   Shield,
   Truck,
@@ -641,6 +642,7 @@ const OrderForm = () => {
   const [formState, setFormState] = useState({ name: '', phone: '', address: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const tmfpRef = useRef<HTMLInputElement>(null);
+  const pageLoadTime = useRef(Date.now());
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -661,55 +663,65 @@ const OrderForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formState.name && formState.phone && formState.address) {
-      setIsSubmitting(true);
+    const validation = validateForm({
+      name: formState.name,
+      phone: formState.phone,
+      address: formState.address,
+      countryCode: 'LT',
+      productKey: 'inspectra_lt',
+      pageLoadTime: pageLoadTime.current,
+    });
+    if (!validation.isValid) {
+      alert(validation.error);
+      return;
+    }
+    setIsSubmitting(true);
 
-      const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
 
-      const formData = new FormData();
-      formData.append('uid', NETWORK_CONFIG.uid);
-      formData.append('key', NETWORK_CONFIG.key);
-      formData.append('offer', NETWORK_CONFIG.offer);
-      formData.append('lp', NETWORK_CONFIG.lp);
-      formData.append('name', formState.name);
-      formData.append('tel', formState.phone);
-      formData.append('street-address', formState.address);
+    const formData = new FormData();
+    formData.append('uid', NETWORK_CONFIG.uid);
+    formData.append('key', NETWORK_CONFIG.key);
+    formData.append('offer', NETWORK_CONFIG.offer);
+    formData.append('lp', NETWORK_CONFIG.lp);
+    formData.append('name', formState.name);
+    formData.append('tel', formState.phone);
+    formData.append('street-address', formState.address);
 
-      const tmfpValue = tmfpRef.current?.value || '';
-      if (tmfpValue) {
-        formData.append('tmfp', tmfpValue);
-      }
+    const tmfpValue = tmfpRef.current?.value || '';
+    if (tmfpValue) {
+      formData.append('tmfp', tmfpValue);
+    }
 
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
-        const value = urlParams.get(param);
-        if (value) formData.append(param, value);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+      const value = urlParams.get(param);
+      if (value) formData.append(param, value);
+    });
+
+    try {
+      const response = await fetch('https://offers.italiadrop.com/forms/api/', {
+        method: 'POST',
+        body: formData,
       });
 
-      try {
-        const response = await fetch('https://offers.italiadrop.com/forms/api/', {
-          method: 'POST',
-          body: formData,
-        });
+      const data = await response.json();
+      console.log('Network API response:', data);
 
-        const data = await response.json();
-        console.log('Network API response:', data);
+      sessionStorage.setItem('ec_phone', formState.phone);
+      sessionStorage.setItem('ec_address', formState.address);
+      sessionStorage.setItem('ec_value', '47');
 
-        sessionStorage.setItem('ec_phone', formState.phone);
-        sessionStorage.setItem('ec_address', formState.address);
-        sessionStorage.setItem('ec_value', '47');
-
-        if (data.message === 'DOUBLE') {
-          sessionStorage.setItem('skipConversion', 'true');
-        }
-
-        window.location.href = '/ty-lt';
-      } catch (error) {
-        console.error('Network API error:', error);
-        sessionStorage.setItem('ec_phone', formState.phone);
-        sessionStorage.setItem('ec_address', formState.address);
-        sessionStorage.setItem('ec_value', '47');
-        window.location.href = '/ty-lt';
+      if (data.message === 'DOUBLE') {
+        sessionStorage.setItem('skipConversion', 'true');
       }
+
+      window.location.href = '/ty-lt';
+    } catch (error) {
+      console.error('Network API error:', error);
+      sessionStorage.setItem('ec_phone', formState.phone);
+      sessionStorage.setItem('ec_address', formState.address);
+      sessionStorage.setItem('ec_value', '47');
+      window.location.href = '/ty-lt';
     }
   };
 
