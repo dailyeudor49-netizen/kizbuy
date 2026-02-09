@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Truck, Check, ShieldCheck, Lock, Award, Banknote } from 'lucide-react';
+import { validateForm } from '@/app/utils/formValidation';
 
 const OrderForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ const OrderForm: React.FC = () => {
     address: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const pageLoadTime = useRef(Date.now());
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -16,6 +18,20 @@ const OrderForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validation = validateForm({
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address,
+      countryCode: 'IT',
+      productKey: 'titansaw_it',
+      pageLoadTime: pageLoadTime.current,
+    });
+    if (!validation.isValid) {
+      alert(validation.error);
+      return;
+    }
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);

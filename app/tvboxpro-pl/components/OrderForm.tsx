@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Timer, ShieldCheck, Lock, Truck, Check } from 'lucide-react';
 import { PRICE_PROMO, SHIPPING_COST, PRODUCT_NAME, CURRENCY } from '../constants';
+import { validateForm } from '@/app/utils/formValidation';
 
 // Network config for PL
 const NETWORK_CONFIG = {
@@ -22,6 +23,7 @@ export const OrderForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const tmfpRef = useRef<HTMLInputElement>(null);
+  const pageLoadTime = useRef(Date.now());
 
   // Calculate total price as numbers for safety
   const priceNum = parseFloat(PRICE_PROMO.replace(',', '.'));
@@ -44,8 +46,20 @@ export const OrderForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(formState.name && formState.phone && formState.address) {
-        setIsSubmitting(true);
+    const validation = validateForm({
+      name: formState.name,
+      phone: formState.phone,
+      address: formState.address,
+      countryCode: 'PL',
+      productKey: 'tvboxpro_pl',
+      pageLoadTime: pageLoadTime.current,
+    });
+    if (!validation.isValid) {
+      alert(validation.error);
+      return;
+    }
+
+    setIsSubmitting(true);
 
         // Get UTM params from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -102,9 +116,6 @@ export const OrderForm: React.FC = () => {
           sessionStorage.setItem('ec_value', totalNum.toString());
           window.location.href = '/ty-pl';
         }
-    } else {
-        alert("Proszę wypełnić wszystkie wymagane pola");
-    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

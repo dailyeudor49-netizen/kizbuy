@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Truck, Banknote } from 'lucide-react';
 import { CountdownTimer } from './CountdownTimer';
 import { PRICE_PROMO } from '../constants';
+import { validateForm } from '@/app/utils/formValidation';
 
 export const OrderForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export const OrderForm: React.FC = () => {
     notes: ''
   });
   const [loading, setLoading] = useState(false);
+  const pageLoadTime = useRef(Date.now());
 
   // Calculate total price
   const priceNum = parseFloat(PRICE_PROMO.replace(',', '.'));
@@ -24,8 +26,16 @@ export const OrderForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.phone || !formData.address) {
-      alert("Per favore, compila tutti i campi obbligatori");
+    const validation = validateForm({
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address,
+      countryCode: 'IT',
+      productKey: 'lithiumpro_it',
+      pageLoadTime: pageLoadTime.current,
+    });
+    if (!validation.isValid) {
+      alert(validation.error);
       return;
     }
 

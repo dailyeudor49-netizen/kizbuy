@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Truck, Banknote } from 'lucide-react';
 import { CountdownTimer } from './CountdownTimer';
 import { PRICE_PROMO, CURRENCY } from '../constants';
+import { validateForm } from '@/app/utils/formValidation';
 
 export const OrderForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export const OrderForm: React.FC = () => {
     notes: ''
   });
   const [loading, setLoading] = useState(false);
+  const pageLoadTime = useRef(Date.now());
 
   const priceNum = parseFloat(PRICE_PROMO.replace(/\s/g, '').replace(',', '.'));
 
@@ -38,8 +40,16 @@ export const OrderForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.phone || !formData.address) {
-      alert("Kérjük, töltse ki az összes kötelező mezőt");
+    const validation = validateForm({
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address,
+      countryCode: 'HU',
+      productKey: 'lithiumpro_hu',
+      pageLoadTime: pageLoadTime.current,
+    });
+    if (!validation.isValid) {
+      alert(validation.error);
       return;
     }
 
