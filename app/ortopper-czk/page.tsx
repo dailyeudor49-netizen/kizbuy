@@ -35,8 +35,8 @@ interface OrderFormProps {
 }
 
 // --- CONSTANTS ---
-const PRICE = 1699;
-const PRICE_OLD = 3398; // -50%
+const PRICE = 2099;
+const PRICE_OLD = 4198; // -50%
 const CURRENCY = 'Kč';
 
 // Network config for CZK
@@ -597,7 +597,7 @@ const Reviews: React.FC = () => {
     { id: 3, name: "Petr B.", city: "Ostrava", text: "Pracuji ve skladu a večer mám záda v troskách. Tento topper mě doslova omlazuje. Cítíte, jak se páteř natahuje, když si lehnete. Velmi rychlé doručení.", rating: 5, image: "/images/ortopper-img/recensione-1.jpg" },
     { id: 4, name: "Eva M.", city: "Plzeň", text: "Byla jsem skeptická ohledně 'masážního' efektu, ale je to pravda. Mám problémy s krevním oběhem v nohou a budím se mnohem méně oteklá. Vlnitý povrch propouští vzduch.", rating: 5 },
     { id: 5, name: "Dr. Štěpán N.", city: "Olomouc", text: "Koupil jsem ho pro svou starší maminku, která tráví hodně času v posteli. Skvělý pro prevenci proleženin a tlakových bolestí. Látka je svěží a hygienická. Doporučuji.", rating: 5 },
-    { id: 6, name: "Barbora S.", city: "Liberec", text: "Moje matrace se stala jednou velkou dírou. Budila jsem se s bolestí ledvin. Za 1699 Kč jsem se vyhnula výdaji 12 000 Kč. Teď je páteř rovná a spím 8 hodin bez přerušení.", rating: 4 },
+    { id: 6, name: "Barbora S.", city: "Liberec", text: "Moje matrace se stala jednou velkou dírou. Budila jsem se s bolestí ledvin. Za 2099 Kč jsem se vyhnula výdaji 12 000 Kč. Teď je páteř rovná a spím 8 hodin bez přerušení.", rating: 4 },
   ];
 
   return (
