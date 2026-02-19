@@ -1025,7 +1025,7 @@ const BrandBanner: React.FC = () => {
         <p className="text-gray-300 text-sm md:text-base">
           <span className="font-bold text-white">QuickChef®</span> je registrirana blagovna znamka, ki jo prodaja izkljucno{' '}
           <Link href="/" className="text-blue-400 hover:text-blue-300 font-semibold underline underline-offset-2">
-            Ecomotiq
+            Kizbuy
           </Link>
           {' '}- Vas zanesljivi tech wholesale partner
         </p>

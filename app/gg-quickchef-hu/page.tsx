@@ -1025,7 +1025,7 @@ const BrandBanner: React.FC = () => {
         <p className="text-gray-300 text-sm md:text-base">
           A <span className="font-bold text-white">QuickChef®</span> bejegyzett vedjegy, kizarolag az{' '}
           <Link href="/" className="text-blue-400 hover:text-blue-300 font-semibold underline underline-offset-2">
-            Ecomotiq
+            Kizbuy
           </Link>
           {' '}altal forgalmazva - A megbizhato tech wholesale partnered
         </p>

@@ -1,4 +1,4 @@
-/* Hide only Axenova header on robotcleanprox pages */
+/* Hide only Kizbuy header on robotcleanprox pages */
 body:has(.robotcleanprox-page) > header,
 body:has(.robotcleanprox-page) header.sticky {
   display: none !important;

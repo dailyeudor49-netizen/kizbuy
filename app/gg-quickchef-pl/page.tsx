@@ -1028,7 +1028,7 @@ const BrandBanner: React.FC = () => {
         <p className="text-gray-300 text-sm md:text-base">
           <span className="font-bold text-white">QuickChef®</span> to zastrzezony znak towarowy sprzedawany wylacznie przez{' '}
           <Link href="/" className="text-blue-400 hover:text-blue-300 font-semibold underline underline-offset-2">
-            Ecomotiq
+            Kizbuy
           </Link>
           {' '}- Twoj zaufany partner tech wholesale
         </p>

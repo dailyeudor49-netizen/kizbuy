@@ -35,8 +35,8 @@ interface OrderFormProps {
 }
 
 // --- CONSTANTS ---
-const PRICE = 69;
-const PRICE_OLD = 138; // -50%
+const PRICE = 89;
+const PRICE_OLD = 178; // -50%
 const CURRENCY = '€';
 
 // Network config for LT
@@ -597,7 +597,7 @@ const Reviews: React.FC = () => {
     { id: 3, name: "Tomas B.", city: "Klaipėda", text: "Dirbu sandėlyje ir vakarais mano nugara skauda. Šis antčiužinis tiesiog mane atjaunina. Jaučiate, kaip stuburas išsitempia, kai atsigulate. Labai greitas pristatymas.", rating: 5, image: "/images/ortopper-img/recensione-1.jpg" },
     { id: 4, name: "Kotryna M.", city: "Šiauliai", text: "Buvau skeptiška dėl 'masažinio' efekto, bet tai tiesa. Turiu kraujotakos problemų kojose ir atsibudau daug mažiau patinusi. Banguotas paviršius praleidžia orą.", rating: 5 },
     { id: 5, name: "Dr. Steponas N.", city: "Panevėžys", text: "Nupirkau jį savo pagyvenusiai mamai, kuri daug laiko praleidžia lovoje. Puikiai tinka pragulų ir spaudimo skausmų prevencijai. Audinys šviežias ir higieniškas. Rekomenduoju.", rating: 5 },
-    { id: 6, name: "Barbora S.", city: "Alytus", text: "Mano čiužinys tapo viena didele duobe. Atsibusdavau su inkstų skausmu. Už 69€ išvengiau 500€ išlaidų. Dabar stuburas tiesus ir miegu 8 valandas be pertraukos.", rating: 4 },
+    { id: 6, name: "Barbora S.", city: "Alytus", text: "Mano čiužinys tapo viena didele duobe. Atsibusdavau su inkstų skausmu. Už 89€ išvengiau 500€ išlaidų. Dabar stuburas tiesus ir miegu 8 valandas be pertraukos.", rating: 4 },
   ];
 
   return (

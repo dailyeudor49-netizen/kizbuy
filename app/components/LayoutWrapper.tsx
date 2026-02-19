@@ -67,6 +67,17 @@ const TITANSAW_ROUTES = [
   "/titansaw-lt",
 ];
 
+// Routes that should show only footer (no header) - generic landings
+const NO_HEADER_ROUTES = [
+  "/gg-quickchef-pl",
+  "/gg-quickchef-cz",
+  "/gg-quickchef-hu",
+  "/gg-quickchef-sl",
+  "/robotcleanprox_pl",
+  "/robotcleanprox_sk",
+  "/robotcleanprox_czk",
+];
+
 export default function LayoutWrapper({
   children,
 }: {
@@ -82,6 +93,9 @@ export default function LayoutWrapper({
 
   // Check if current route should show only footer with Titansaw brand
   const isTitansawLanding = TITANSAW_ROUTES.some(route => pathname?.startsWith(route));
+
+  // Check if current route should show only footer (no header)
+  const isNoHeaderLanding = NO_HEADER_ROUTES.some(route => pathname?.startsWith(route));
 
   // Check if current route should show only Ortopper brand footer (no header)
   const isOrtopperLanding = ORTOPPER_ROUTES.some(route => pathname?.startsWith(route));
@@ -159,6 +173,15 @@ export default function LayoutWrapper({
       <>
         {children}
         <Footer showTitansawBrand />
+      </>
+    );
+  }
+
+  if (isNoHeaderLanding) {
+    return (
+      <>
+        {children}
+        <Footer />
       </>
     );
   }
