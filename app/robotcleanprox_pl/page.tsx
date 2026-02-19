@@ -62,6 +62,9 @@ export default function RobotCleanProXPage() {
 
   return (
     <>
+      {/* Network Click Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="https://offers.supertrendaffiliateprogram.com/forms/api/ck/?o=595&uid=01981ccf-4474-7c39-97eb-9407221996c2&lp=595" style={{width:'1px',height:'1px',display:'none'}} alt="" />
       <div className="min-h-screen bg-gray-50 text-gray-900 pb-24 overflow-x-hidden">
         {/* Header / Trust Bar */}
         <header className="bg-white shadow-sm py-3 px-4 relative z-40">

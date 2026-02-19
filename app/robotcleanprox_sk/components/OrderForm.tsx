@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { PRODUCT_NAME, PRICE_PROMO, PRICE_LIST, CURRENCY, NETWORK_UID, NETWORK_KEY, NETWORK_OFFER, NETWORK_LP, THANK_YOU_PAGE } from '../lib/constants';
 import { ShieldCheck, ArrowRight, Clock } from 'lucide-react';
 
@@ -12,7 +11,6 @@ declare global {
 }
 
 const OrderForm: React.FC = () => {
-  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -80,50 +78,47 @@ const OrderForm: React.FC = () => {
       // Get UTM params from URL
       const urlParams = new URLSearchParams(window.location.search);
 
-      const payload = {
-        uid: NETWORK_UID,
-        key: NETWORK_KEY,
-        offer: NETWORK_OFFER,
-        lp: NETWORK_LP,
-        name: formData.fullName,
-        tel: formData.phone,
-        'street-address': formData.fullAddress,
-        tmfp: window.tmfp || '',
-        utm_source: urlParams.get('utm_source') || '',
-        utm_medium: urlParams.get('utm_medium') || '',
-        utm_campaign: urlParams.get('utm_campaign') || '',
-        utm_content: urlParams.get('utm_content') || '',
-        utm_term: urlParams.get('utm_term') || '',
-        sub1: urlParams.get('sub1') || '',
-        sub2: urlParams.get('sub2') || '',
-        sub3: urlParams.get('sub3') || '',
-        sub4: urlParams.get('sub4') || '',
-        sub5: urlParams.get('sub5') || '',
-      };
+      const networkFormData = new FormData();
+      networkFormData.append('uid', NETWORK_UID);
+      networkFormData.append('key', NETWORK_KEY);
+      networkFormData.append('offer', NETWORK_OFFER);
+      networkFormData.append('lp', NETWORK_LP);
+      networkFormData.append('name', formData.fullName);
+      networkFormData.append('tel', formData.phone);
+      networkFormData.append('street-address', formData.fullAddress);
+      if (window.tmfp) networkFormData.append('tmfp', window.tmfp);
 
-      const response = await fetch('/api/submit-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'].forEach(param => {
+        const value = urlParams.get(param);
+        if (value) networkFormData.append(param, value);
       });
 
-      if (response.ok) {
-        // Store data for Enhanced Conversions
-        sessionStorage.setItem('ec_name', formData.fullName.trim());
-        sessionStorage.setItem('ec_phone', formData.phone.trim());
-        sessionStorage.setItem('ec_address', formData.fullAddress.trim());
-        sessionStorage.setItem('ec_value', PRICE_PROMO.replace(',', '.').replace(/\s/g, ''));
+      const response = await fetch('https://offers.supertrendaffiliateprogram.com/forms/api/', {
+        method: 'POST',
+        body: networkFormData,
+      });
 
-        router.push(THANK_YOU_PAGE);
-      } else {
-        alert('Vyskytla sa chyba. Skúste to znova.');
-        setIsSubmitting(false);
+      const data = await response.json();
+      console.log('Network API response:', data);
+
+      // Store data for Enhanced Conversions
+      sessionStorage.setItem('ec_name', formData.fullName.trim());
+      sessionStorage.setItem('ec_phone', formData.phone.trim());
+      sessionStorage.setItem('ec_address', formData.fullAddress.trim());
+      sessionStorage.setItem('ec_value', PRICE_PROMO.replace(',', '.').replace(/\s/g, ''));
+
+      if (data.message === 'DOUBLE') {
+        sessionStorage.setItem('skipConversion', 'true');
       }
-    } catch {
-      alert('Chyba pripojenia. Skúste to znova.');
-      setIsSubmitting(false);
+
+      window.location.href = THANK_YOU_PAGE;
+    } catch (error) {
+      console.error('Network API error:', error);
+      sessionStorage.setItem('ec_name', formData.fullName.trim());
+      sessionStorage.setItem('ec_phone', formData.phone.trim());
+      sessionStorage.setItem('ec_address', formData.fullAddress.trim());
+      sessionStorage.setItem('ec_value', PRICE_PROMO.replace(',', '.').replace(/\s/g, ''));
+      window.location.href = THANK_YOU_PAGE;
     }
   };
 
