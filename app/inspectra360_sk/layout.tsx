@@ -15,7 +15,7 @@ export default function Inspectra360SkLayout({
     <>
       {/* Google Ads Tracking */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-17261661993"
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17930736121"
         strategy="afterInteractive"
       />
       {/* Network Fingerprint Script */}
@@ -29,7 +29,7 @@ export default function Inspectra360SkLayout({
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'AW-17261661993');
+          gtag('config', 'AW-17930736121');
         `}
       </Script>
       {children}

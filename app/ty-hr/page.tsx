@@ -44,7 +44,7 @@ export default function ThankYouPage() {
       // Load gtag script
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17930736121';
       document.head.appendChild(script);
 
       script.onload = () => {
@@ -52,7 +52,7 @@ export default function ThankYouPage() {
         window.gtag = function() { window.dataLayer!.push(arguments); };
         window.gtag('js', new Date());
 
-        window.gtag('config', 'AW-17261661993');
+        window.gtag('config', 'AW-17930736121');
 
         // Enhanced Conversions - send plain text, Google hashes automatically
         const userData: Record<string, unknown> = {};
@@ -62,7 +62,7 @@ export default function ThankYouPage() {
 
         // Purchase HR conversion
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/HQN_CITj2c8bEKmegKdA',
+          'send_to': 'AW-17930736121/noXbCL_LovsbEPmjheZC',
           'value': ecValue,
           'currency': 'EUR',
           'transaction_id': transactionId

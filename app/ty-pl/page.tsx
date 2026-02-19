@@ -44,14 +44,14 @@ export default function ThankYouPage() {
       // Load gtag script
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17930736121';
       document.head.appendChild(script);
 
       script.onload = () => {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function() { window.dataLayer!.push(arguments); };
         window.gtag('js', new Date());
-        window.gtag('config', 'AW-17261661993');
+        window.gtag('config', 'AW-17930736121');
 
         // Enhanced Conversions: send plain text user_data (Google hashes automatically)
         const userData: Record<string, unknown> = {};
@@ -67,7 +67,7 @@ export default function ThankYouPage() {
 
         // Purchase PL conversion
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-17261661993/VxxaCOTu4s8bEKmegKdA',
+          'send_to': 'AW-17930736121/wh2KCJb_sPsbEPmjheZC',
           'value': ecValue,
           'currency': 'PLN',
           'transaction_id': transactionId

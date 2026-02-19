@@ -30,18 +30,18 @@ export default function ThankYouPage() {
       const ecValue = parseFloat(sessionStorage.getItem('ec_value') || '1.0');
       const script = document.createElement('script');
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17261661993';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17930736121';
       document.head.appendChild(script);
       script.onload = () => {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function() { window.dataLayer!.push(arguments); };
         window.gtag('js', new Date());
-        window.gtag('config', 'AW-17261661993');
+        window.gtag('config', 'AW-17930736121');
         const userData: Record<string, unknown> = {};
         if (ecPhone) userData.phone_number = ecPhone.replace(/[\s\-\(\)]/g, '');
         if (ecAddress) userData.address = { street: ecAddress, country: 'SK' };
         if (Object.keys(userData).length > 0) window.gtag('set', 'user_data', userData);
-        window.gtag('event', 'conversion', { 'send_to': 'AW-17261661993/VPSxCNe01M8bEKmegKdA', 'value': ecValue, 'currency': 'EUR', 'transaction_id': transactionId });
+        window.gtag('event', 'conversion', { 'send_to': 'AW-17930736121/-3FaCPntsPsbEPmjheZC', 'value': ecValue, 'currency': 'EUR', 'transaction_id': transactionId });
         sessionStorage.setItem('conversionTracked', 'true');
         sessionStorage.removeItem('ec_name'); sessionStorage.removeItem('ec_phone'); sessionStorage.removeItem('ec_address'); sessionStorage.removeItem('ec_value');
       };
